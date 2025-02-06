@@ -23,12 +23,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`px-4 antialiased min-h-screen flex flex-col`}
       >
-        {children}
+        <header className="fixed top-0 w-full  bg-white shadow-md z-50 ">
+          <nav className="container  w-[100%] h-14 px-4 flex justify-between items-center">
+            <span className="text-xl font-bold">Book Shop</span>
+            <div className="space-x-4">
+              <span><input placeholder="search"/></span>
+              <span className="cursor-pointer">Login</span>
+              <span className="cursor-pointer">Join</span>
+            </div>
+          </nav>
+          <div className="relative">
+            <img className="w-[100%]  h-[280px] object-cover object-bottom" src="/images/book_banner.jpg" alt="book_banner"/>
+            <span className="absolute top-32 left-20 text-white font-bold text-4xl">Enjoy a book</span>
+          </div>
+        </header>
+
+        <main className="flex-grow w-full px-4">
+          {/* 여기에 페이지 내용이 들어감 */}
+          {children}
+        </main>
+
+        <footer className="bg-gray-100 mt-auto py-4 w-full">
+          <div className="w-full px-4 text-center">
+            <p>© 2025 Book Shop. All rights reserved.</p>
+          </div>
+        </footer>
       </body>
     </html>
+
   );
 }
