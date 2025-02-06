@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(cuid()) @db.VarChar(50)  // id 필드는 String 타입으로, 고유 값은 cuid()로 자동 생성
+  password String  @db.VarChar(100)
+  username String  @db.VarChar(50)
+  phone    String? @db.VarChar(30) // ?는 이 필드가 null일 수 있음을 나타냄
+  addr     String? @db.VarChar(50)
+  email    String? @db.VarChar(100)
+  role     String  @default("USER") @db.VarChar(30)  // 기본값은 "USER"
+  
+  @@map("users")  // 테이블 이름을 "users"로 설정
+}
+
