@@ -1,10 +1,16 @@
 import Image from "next/image";
+import ItemList from "@/components/ItemList";
+import prisma from "../../lib/prisma";
 
-export default function Home() {
+
+export default async function Home() {
+
+  const items = await prisma.item.findMany();
+
   return (
     <div>
       <h1>Bookstore main</h1>
-      <h2>dfssdf</h2>
+      <ItemList initialItems={items} />
     </div>
   );
 }

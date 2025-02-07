@@ -23,7 +23,57 @@ model User {
   addr     String? @db.VarChar(50)
   email    String? @db.VarChar(100)
   role     String  @default("USER") @db.VarChar(30)  // 기본값은 "USER"
-  
+  cart Cart[] //1:N 관계 설정
   @@map("users")  // 테이블 이름을 "users"로 설정
 }
 
+
+
+
+model Category{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  items Item[] //1:N 관계 설정
+
+  @@map("category")
+}
+
+model ItemImg {
+  id               Int    @id @default(autoincrement())  // 프라이머리 키
+  originFileName   String
+  attachedFileName String
+  isMain           String
+  itemId           Int    // 외래 키
+  item             Item   @relation(fields: [itemId], references: [id], onDelete: Cascade) //  외래 키 관계
+
+  @@map("item_img") 
+}
+
+model Item{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  price Int @db.Int
+  intro String? @db.VarChar(100)
+  stock Int @default(20)
+  status String @default("FOR_SALE")
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id]) //1:1 관계 설정 
+  itemImgs ItemImg[] //1:N 관계 설정
+  cart Cart[] //1:N 관계 설정 (한 개의 아이템을 여러 개의 장바구니 항목이 참조할 수 있음)
+
+  @@map("item")
+  
+}
+
+
+model Cart {
+  id     Int      @id @default(autoincrement())
+  cnt    Int      @db.Int
+  itemId Int
+  item   Item     @relation(fields: [itemId], references: [id])
+  userId String
+  user   User     @relation(fields: [userId], references: [id])
+  date   DateTime @default(now())
+
+  @@map("cart")
+}
