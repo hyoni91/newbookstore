@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
 import type { JoinRequest } from "@/types/auth";
-import prisma from "../../../../lib/prisma";
+import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
+import prisma from "../../../lib/prisma";
 
 export async function POST(request: Request) {
   try {

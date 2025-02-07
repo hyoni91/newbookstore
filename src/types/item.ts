@@ -1,25 +1,25 @@
-interface Item {
+export interface Item {
     id: number;
     name: string;
     price: number;
-    intro: string;
+    intro?: string;
     stock: number;
     status: string;
     categoryId: number;
     category: Category;
-    itemImgs: ItemImg[];
+    itemImgs?: ItemImg[];
 }
 
-interface Category {
+export interface Category {
     id: number;
     name: string;
 }
 
 
-interface ItemImg {
+export interface ItemImg {
     id: number;
     originFileName: string;
     attachedFileName: string;
-    isMain: boolean;
+    isMain: string;
     itemId: number;
 }
