@@ -2,7 +2,7 @@ export interface Item {
     id: number;
     name: string;
     price: number;
-    intro?: string;
+    intro?: string | null;
     stock: number;
     status: string;
     categoryId: number;
@@ -23,3 +23,14 @@ export interface ItemImg {
     isMain: string;
     itemId: number;
 }
+
+//아이템 저장
+export interface CreateItemRequest{
+    name : string;
+    price : number;
+    intro? : string;
+    categoryId : number;
+    mainImg: File | undefined;
+    subImg?: File | undefined;
+}
+
