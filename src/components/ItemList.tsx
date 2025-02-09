@@ -27,6 +27,10 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
         const fetchItems = async () => {
             const response = await fetch(`/api/items${selectedCategory ? `?categoryId=${selectedCategory}` : ''}`);
             const data: Item[] = await response.json();
+
+            console.log(data);  
+            console.log(selectedCategory)
+            console.log(response)
             setItems(data || []);
         };
         fetchItems();
@@ -38,7 +42,7 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
 
     return (
         <div>
-            <div className="flex text-1xl flex-wrap gap-16 justify-center items-center">
+            <div className="flex text-1xl flex-wrap gap-16 mb-10  justify-center items-center">
                 <p className="cursor-pointer hover:border-b-2 border-black" 
                   onClick={() => setSelectedCategory(null)}
                   >
@@ -55,16 +59,16 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
             </div>
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
-                spaceBetween={50}
-                slidesPerView={window.innerWidth < 768 ? 2 : 6}
+                spaceBetween={3}
+                slidesPerView={window.innerWidth < 768 ? 3 : 6}
                 navigation
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 3000 }}
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.id}>
-                        <img className='w-64 border-2' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
-                        <p>{item.category.name}</p>
+                        <img className='w-44 border-2' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
+                        <p className=''>{item.category.name}</p>
                         <p>{item.name}</p>
                         <p>¥{item.price.toLocaleString()}</p>
                     </SwiperSlide>
