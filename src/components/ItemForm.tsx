@@ -36,7 +36,7 @@ export default function ItemForm({ initialCategories }: { initialCategories: Cat
         formDataToSend.append('mainImg', itemFormData.mainImg || '');
         formDataToSend.append('subImg', itemFormData.subImg || '');
 
-        const response = await fetch('api/admin/items',{
+        const response = await fetch('/api/admin/items',{
             method : 'POST',
             body : formDataToSend,
         });

@@ -9,6 +9,9 @@ export default async function Home() {
     }
   });
   const categories = await prisma.category.findMany();
+  
+
+  console.log("item;" , items)
 
   return (
     <div>

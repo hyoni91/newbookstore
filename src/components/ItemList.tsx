@@ -1,12 +1,19 @@
 "use client";
 import { Category, Item } from '@/types/item';
 import { useEffect, useState } from 'react';
+import { Swiper , SwiperSlide } from 'swiper/react';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
 
 const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initialCategories:Category[]}) => {
     const [mounted, setMounted] = useState(false);
     const [items, setItems] = useState<Item[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);    
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
 
     useEffect(() => {
         setMounted(true);
@@ -23,7 +30,9 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
             setItems(data || []);
         };
         fetchItems();
-    }, [selectedCategory, mounted]);
+      
+    }, [selectedCategory,]);
+
 
     if (!mounted) return null;
 
@@ -44,14 +53,23 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
                     </p>
                 ))}
             </div>
-            <div className="flex flex-wrap gap-8 justify-center items-center">
+            <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                spaceBetween={50}
+                slidesPerView={window.innerWidth < 768 ? 2 : 6}
+                navigation
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 3000 }}
+            >
                 {items.map((item) => (
-                    <div key={item.id}>
+                    <SwiperSlide key={item.id}>
+                        <img className='w-64 border-2' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
+                        <p>{item.category.name}</p>
                         <p>{item.name}</p>
-                        <p>{item.itemImgs?.[0]?.attachedFileName}</p>
-                    </div>
-                ))}
-            </div>
+                        <p>¥{item.price.toLocaleString()}</p>
+                    </SwiperSlide>
+                ))} 
+            </Swiper>
         </div>
     );
 };

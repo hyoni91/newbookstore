@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from "path"
 
 
-export const saveFile = async (file:File, directory: string) => {
+export const saveFile = async (file:File, directory: string , ) => {
     
     //경로
     const uploadDir = path.join(process.cwd() , 'public' , directory);
@@ -17,6 +17,6 @@ export const saveFile = async (file:File, directory: string) => {
     fs.writeFileSync(filePath , buffer)
     
 
-    return `/${directory}/${uniqueFileName}`;
+    return { filePath: `/${directory}/${uniqueFileName}`, fileName: uniqueFileName };
 
 }
