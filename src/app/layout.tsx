@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
-        <header className="fixed top-0 w-full bg-white shadow-sm z-50 px-6">
+        <header className="fixed top-0 w-full bg-white shadow-sm z-50 px-6 ">
           <nav className="max-w-7xl mx-auto w-full h-16 px-4 flex justify-between items-center">
             <Link href="/" className="text-2xl font-bold text-gray-800">
               Book Shop

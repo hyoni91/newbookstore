@@ -33,4 +33,3 @@ export interface CreateItemRequest{
     mainImg: File | undefined;
     subImg?: File | undefined;
 }
-

@@ -54,28 +54,28 @@ export default function ItemForm({ initialCategories }: { initialCategories: Cat
                     ))}
                 </select>
                 <div>
-                    <label htmlFor="name">상품명</label>
+                    <label htmlFor="name">商品名</label>
                     <input type="text" id="name" value={itemFormData.name} onChange={(e)=>setItemFormData({...itemFormData, name: e.target.value})}/>
                 </div>
                 <div>
-                    <label htmlFor="price">가격</label>
+                    <label htmlFor="price">値段</label>
                     <input type="number" id="price" value={itemFormData.price} onChange={(e)=>setItemFormData({...itemFormData, price: Number(e.target.value)})}/>
                 </div>
                 <div>
-                    <label htmlFor="intro">상품 소개</label>
+                    <label htmlFor="intro">商品紹介</label>
                     <textarea id="intro" value={itemFormData.intro} onChange={(e)=>setItemFormData({...itemFormData, intro: e.target.value})}/>
                 </div>
                 
                 <div>
-                    <label htmlFor="mainImg">대표 이미지</label>
+                    <label htmlFor="mainImg">メインイメージ</label>
                         <input type="file" id="mainImg" onChange={(e)=>handleFileChange(e, 'mainImg')}/>
                 </div>
                 <div>
-                    <label htmlFor="subImg">서브 이미지</label>
+                    <label htmlFor="subImg">説明イメージ</label>
                     <input type="file" id="subImg" onChange={(e)=>handleFileChange(e, 'subImg')}/>
                 </div>
-                <button type="submit">제출</button>
-                <button type="button" onClick={()=>setItemFormData({...itemFormData, mainImg: undefined, subImg: undefined})}>초기화</button>
+                <button type="submit">登録する</button>
+                <button type="button" onClick={()=>setItemFormData({...itemFormData, mainImg: undefined, subImg: undefined})}>初期化</button>
             </form>
         </div>
     )

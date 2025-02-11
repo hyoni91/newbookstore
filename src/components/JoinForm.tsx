@@ -40,14 +40,14 @@ export default function JoinForm() {
           const data = await response.json();
           
           if (response.ok) {
-            alert("가입 성공!");
+            alert("WELCOME");
             router.push("/login");
           } else {
-            alert(data.message || "가입 실패");
+            alert(data.message || "Error");
           }
         } catch (error) {
           console.error('Error during registration:', error);
-          alert("가입 처리 중 오류가 발생했습니다.");
+          alert("Error during registration");
         }
       };
 

@@ -1,4 +1,5 @@
 "use client";
+
 import { Category, Item } from '@/types/item';
 import { useEffect, useState } from 'react';
 import { Swiper , SwiperSlide } from 'swiper/react';
@@ -6,6 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import Link from 'next/link';
 
 
 const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initialCategories:Category[]}) => {
@@ -67,10 +69,13 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.id}>
-                        <img className='w-44 border-2' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
-                        <p className=''>{item.category.name}</p>
-                        <p>{item.name}</p>
-                        <p>¥{item.price.toLocaleString()}</p>
+                        <Link href={`/itemdetail/${item.id}`}>
+                            <img className='w-44 border-2' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
+                            <p className=''>{item.category.name}</p>
+                            <p>{item.name}</p>
+                            <p>¥{item.price.toLocaleString()}</p>
+                        </Link>
+                        
                     </SwiperSlide>
                 ))} 
             </Swiper>
