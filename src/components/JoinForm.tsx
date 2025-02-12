@@ -23,9 +23,7 @@ export default function JoinForm() {
           [name]: value
         }));
       };
-    
-      console.log(formData);
-    
+        
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {

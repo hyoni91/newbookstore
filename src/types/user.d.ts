@@ -7,3 +7,8 @@ export interface Users{
   addr?: string;
   role: string;
 }
+
+export interface LoginFormData{
+  id : string ;
+  password : string;
+}
