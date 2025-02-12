@@ -3,16 +3,15 @@
 import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useUserContext } from "@/context/UserContext";
 
 
 export default function Header(){
 
-
+const { userId, setUserId } = useUserContext();
 const [isLoggedIn , setIsLoggedIn] = useState(false);
-const [userId, setUserId] = useState("")
   
 useEffect (()=>{
-
     const fetchUserProfile = async ()=>{
         const  token = window.localStorage.getItem("Token");
         if(token){
@@ -37,7 +36,7 @@ useEffect (()=>{
         }
     };
     fetchUserProfile(); // 비동기 함수 호출
-},[])
+},[setUserId])
 
 
 

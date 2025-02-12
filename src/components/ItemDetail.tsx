@@ -1,5 +1,6 @@
 "use client";
 
+import { useUserContext } from "@/context/UserContext";
 import { Item } from "@/types/item";
 import { useEffect, useState } from "react";
 
@@ -11,6 +12,8 @@ interface ItemDetailProps {
 export default function ItemDetail({ itemId }: ItemDetailProps) {
     const [item, setItem] = useState<Item | null>(null);
     const [loading, setLoading] = useState(true);
+    const { userId } = useUserContext();
+
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -40,17 +43,19 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    itemId,
+                    itemId : parseInt(itemId),
                     cnt: 1,
-                    userId : "user_2mJ3QX88YvK2X02QZksvR2ZM"
+                    userId : userId
                 })
             });
 
             if (!response.ok) throw new Error('Failed to add to cart');
             const data = await response.json();
             console.log('Cart updated:', data);
+
         } catch (error) {
             console.error('Error adding to cart:', error);
+
         }
     };
 
@@ -75,13 +80,14 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     </div>
                 </div>
                 <div className="space-y-4">
+                    <div className="space-y-2">
+                        <p>{item.category.name}</p>
+                        {/* <p>在庫: {item.stock}点</p> */}
+                    </div>
                     <h1 className="text-3xl font-bold">{item.name}</h1>
                     <p className="text-xl font-semibold">¥{item.price.toLocaleString()}</p>
                     <p className="text-gray-600">{item.intro}</p>
-                    <div className="space-y-2">
-                        <p>カテゴリー: {item.category.name}</p>
-                        <p>在庫: {item.stock}点</p>
-                    </div>
+                    
                     <button 
                         className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
                         onClick={handleAddToCart}

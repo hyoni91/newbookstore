@@ -12,3 +12,8 @@ export interface LoginFormData{
   id : string ;
   password : string;
 }
+
+export interface UserContextType{
+  userId : string | null;
+  setUserId: React.Dispatch<React.SetStateAction<string | null>>;
+}

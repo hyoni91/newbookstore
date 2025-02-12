@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
-import {  useEffect, useState } from "react";
 import Header from "@/components/Header";
+import { UserProvider } from "@/context/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +31,7 @@ export default function RootLayout({
 
 
   return (
+  <UserProvider>
     <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen flex flex-col`}
@@ -78,5 +79,6 @@ export default function RootLayout({
         </footer>
       </body>
     </html>
+  </UserProvider>
   );
 }
