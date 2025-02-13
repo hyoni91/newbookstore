@@ -13,6 +13,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     const [item, setItem] = useState<Item | null>(null);
     const [loading, setLoading] = useState(true);
     const { userId } = useUserContext();
+    
 
 
     useEffect(() => {
@@ -43,15 +44,18 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    itemId : parseInt(itemId),
+                    itemId : parseInt(itemId, 10),
                     cnt: 1,
                     userId : userId
                 })
             });
 
+            console.log(item)
+
             if (!response.ok) throw new Error('Failed to add to cart');
             const data = await response.json();
             console.log('Cart updated:', data);
+
 
         } catch (error) {
             console.error('Error adding to cart:', error);

@@ -33,8 +33,9 @@ export async function POST(request:Request) {
             }
         });
 
-        return NextResponse.json({message : "Add Cart" , cart} ,{status : 200})
       }
+      return NextResponse.json({message : "Add Cart" , cart} ,{status : 200})
+
     }
       catch (error) {
         console.error("error! : ", error);
