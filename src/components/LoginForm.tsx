@@ -1,9 +1,12 @@
 "use client"
 
 import { LoginFormData } from "@/types/user";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function LoginForm(){
+    const router = useRouter();
+
     const [loginData, setLoginData] = useState<LoginFormData>({
         id : '',
         password: ''
@@ -31,6 +34,7 @@ export default function LoginForm(){
 
             if(response.ok){
                 localStorage.setItem("Token", data.token); //JWT저장
+                router.push("/")
             }else{
                 console.error(data.message)
             }
@@ -45,17 +49,13 @@ export default function LoginForm(){
 
     return(
         <form onSubmit={handleSubmitLogin}>
-            <div>
-                <label htmlFor="id">ID</label>
-                <input id="id" name="id" type="text" value={loginData.id} onChange={handleChange}/>
+            <div className="mt-3">
+                <input className="border border-gray-300 rounded-md p-2 w-full" id="id" name="id" type="text" placeholder="ID" value={loginData.id} onChange={handleChange}/>
             </div>
-            <div>
-                <label htmlFor="password">PASSWORD</label>
-                <input id="password" name="password" type="password" value={loginData.password} onChange={handleChange}/>
+            <div className="mt-3 mb-10">
+                <input className="border border-gray-300 rounded-md p-2 w-full" id="password" name="password" type="password" placeholder="PASSWORD" value={loginData.password} onChange={handleChange}/>
             </div>
-            <div>
-                <button type="submit">Login</button>
-            </div>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded-md w-full" type="submit">ログイン</button>
         </form>
     )
 }

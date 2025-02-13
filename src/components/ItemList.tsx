@@ -43,7 +43,7 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
     if (!mounted) return null;
 
     return (
-        <div>
+        <div className='mt-6'>
             <div className="flex text-1xl flex-wrap gap-16 mb-10  justify-center items-center">
                 <p className="cursor-pointer hover:border-b-2 border-black" 
                   onClick={() => setSelectedCategory(null)}

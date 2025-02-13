@@ -40,6 +40,7 @@ export default function JoinForm() {
           if (response.ok) {
             alert("WELCOME");
             router.push("/login");
+            
           } else {
             alert(data.message || "Error");
           }
@@ -51,31 +52,30 @@ export default function JoinForm() {
 
     return(
       <form onSubmit={handleSubmit}>
-        <div>
-          <label className="block mb-2" htmlFor="id">ID</label>
-          <input className="border border-gray-300 rounded-md p-2 w-full" type="text" id="id" name="id" value={formData.id} onChange={handleChange} />
+        <div className="mt-3">
+          <input className="border border-gray-300 rounded-md p-2 w-full" placeholder="ID" type="text" id="id" name="id" value={formData.id} onChange={handleChange} />
         </div>
-        <div>
-          <label className="block mb-2" htmlFor="password">PASSWORD</label>
-          <input className="border border-gray-300 rounded-md p-2 w-full" type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
+        <div className="mt-3">
+          {/* <label className="block mb-2" htmlFor="password">PASSWORD</label> */}
+          <input className="border border-gray-300 rounded-md p-2 w-full" placeholder="PASSWORD" type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
         </div>
-        <div>
-          <label className="block mb-2" htmlFor="username">USERNAME</label>
-          <input className="border border-gray-300 rounded-md p-2 w-full" type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
+        <div className="mt-3">
+          {/* <label className="block mb-2" htmlFor="username">USERNAME</label> */}
+          <input className="border border-gray-300 rounded-md p-2 w-full" placeholder="USERNAME" type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
         </div>
-        <div>
-          <label className="block mb-2" htmlFor="email">EMAIL</label>
-          <input className="border border-gray-300 rounded-md p-2 w-full" type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+        <div className="mt-3">
+          {/* <label className="block mb-2" htmlFor="email">EMAIL</label> */}
+          <input className="border border-gray-300 rounded-md p-2 w-full" placeholder="EMAIL" type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
         </div>
-        <div>
-          <label className="block mb-2" htmlFor="phone">PHONE</label>
-          <input className="border border-gray-300 rounded-md p-2 w-full" type="text" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
+        <div className="mt-3">
+          {/* <label className="block mb-2" htmlFor="phone">PHONE</label> */}
+          <input className="border border-gray-300 rounded-md p-2 w-full" placeholder="PHONE" type="text" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
         </div>
-        <div>
-          <label className="block mb-2" htmlFor="addr">ADDR</label>
-          <input className="border border-gray-300 rounded-md p-2 w-full" type="text" id="addr" name="addr" value={formData.addr} onChange={handleChange} />
+        <div className="mt-3 mb-10">
+          {/* <label className="block mb-2" htmlFor="addr">ADDR</label> */}
+          <input className="border border-gray-300 rounded-md p-2 w-full" placeholder="ADDR" type="text" id="addr" name="addr" value={formData.addr} onChange={handleChange} />
         </div>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-md w-full" type="submit">가입하기</button>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-md w-full" type="submit">登録する</button>
       </form>
     )
 }
