@@ -23,6 +23,8 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
         setCategories(initialCategories);
     }, [initialItems, initialCategories]);
 
+    
+
     useEffect(() => {
         if (!mounted) return;
         
@@ -42,22 +44,37 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
 
     if (!mounted) return null;
 
+    const cateName = () =>{
+        switch (selectedCategory) {
+            
+            case 1 : return( <>人気の小説</>)
+            case 2 : return (<>IT技術を磨こう</>)
+            case 3 : return(<>自分らしさを見つけ</>)
+        
+            default: return(<>今日のおすすめ</>)
+                break;
+        }
+    }
+
     return (
         <div className='mt-6'>
-            <div className="flex text-1xl flex-wrap gap-16 mb-10  justify-center items-center">
-                <p className="cursor-pointer hover:border-b-2 border-black" 
+            <div className="flex text-1xl flex-wrap  text-gray-900 gap-16 mb-10  justify-center items-center">
+                <p className="cursor-pointer hover:text-gray-700" 
                   onClick={() => setSelectedCategory(null)}
                   >
                     All
                 </p>
                 {categories.map((category) => (
-                    <p className="cursor-pointer hover:border-b-2 border-black"  
+                    <p className="cursor-pointer hover:font-bold"  
                       key={category.id} 
                       onClick={() => setSelectedCategory(category.id)}
                     >
                         {category.name}
                     </p>
                 ))}
+            </div>
+            <div className='font-bold text-lg mb-10'>
+                {cateName()}
             </div>
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
@@ -70,7 +87,7 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
                 {items.map((item) => (
                     <SwiperSlide key={item.id}>
                         <Link href={`/itemdetail/${item.id}`}>
-                            <img className='w-44 border-2' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
+                            <img className='w-44 border-[1px] rounded-md' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
                             <p className=''>{item.category.name}</p>
                             <p>{item.name}</p>
                             <p>¥{item.price.toLocaleString()}</p>
