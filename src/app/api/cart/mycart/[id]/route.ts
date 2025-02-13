@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 //myCartPage
 
 export async function GET(request:NextRequest , {params} : {params : {id:string}}) {
+    
     try {
         const userId = params.id;
 
@@ -24,8 +25,18 @@ export async function GET(request:NextRequest , {params} : {params : {id:string}
                 }
             },
         });
+        
+       // MyCart 인터페이스에 맞게 데이터 변환
+       const formattedCart: MyCart[] = cartItems.map(cartItem => ({
+        mainImg: cartItem.item.itemImgs[0].attachedFileName,
+        itemName: cartItem.item.name,
+        cnt: cartItem.cnt,
+        price: cartItem.item.price,
+        allPrice: cartItem.cnt * cartItem.item.price, // 총 가격 계산
+        date: cartItem.date.toISOString().split("T")[0], // YYYY-MM-DD 형식 변환
+    })); 
 
-        return NextResponse.json(cartItems, {status : 200})
+        return NextResponse.json(formattedCart, {status : 200});
         
     } catch (error) {
         console.error("Error fetching cart:" , error);

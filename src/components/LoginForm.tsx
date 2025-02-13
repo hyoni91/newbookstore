@@ -1,6 +1,5 @@
 "use client"
 
-import { POST } from "@/app/api/cart/route";
 import { LoginFormData } from "@/types/user";
 import React, { useState } from "react";
 
