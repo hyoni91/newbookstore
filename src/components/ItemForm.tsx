@@ -5,7 +5,8 @@ import { Category } from "@prisma/client";
 import { useState } from "react";
 
 export default function ItemForm({ initialCategories }: { initialCategories: Category[] }) {
-    const [categories, setCategories] = useState<Category[]>(initialCategories);
+    // const [categories, setCategories] = useState<Category[]>(initialCategories);
+    const categories : Category[] = initialCategories;
 
     const [itemFormData, setItemFormData] = useState<CreateItemRequest>({
         name: '',
