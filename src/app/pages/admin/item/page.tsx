@@ -9,7 +9,7 @@ export default async function ItemPage() {
         <div>
             <h1>상품 등록</h1>
             <ItemForm initialCategories={categories}/>
-            <Link href="/admin">목록으로</Link>
+            <Link href="/">목록으로</Link>
         </div>
     );
 }   

@@ -39,7 +39,7 @@ export default function JoinForm() {
           
           if (response.ok) {
             alert("WELCOME");
-            router.push("/login");
+            router.push("/pages/login");
             
           } else {
             alert(data.message || "Error");

@@ -64,42 +64,54 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                    <img 
+        <div className="px-10 py-10 max-w-6xl mx-auto p-4">
+                <div className="flex gap-10 ">
+                    <div>
+                        <img 
                         src={`/uploads/${item.itemImgs?.[0]?.attachedFileName}`}
                         alt={item.name}
-                        className="w-full h-auto object-cover rounded-lg"
+                        className="border-[1px] h-auto object-cover rounded-lg"
                     />
-                    <div className="grid grid-cols-4 gap-2">
+                    </div>
+                    <div className=" flex w-full flex-col justify-center">
+                        <p className="text-xs">{item.category.name}</p>
+                        <h1 className="text-xl font-bold">{item.name}</h1>
+                        <p className="text-m font-semibold">¥{item.price.toLocaleString()}</p>
+                    </div>
+                    
+                </div>
+                <div className="mt-10 w-full flex gap-2 justify-start">
+                    <button 
+                        className="w-sm text-m  text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
+                        onClick={handleAddToCart}
+                    >
+                        <i className="bi bi-cart" />
+                    </button>
+                    <button className="w-2/12 text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-grey-600 transition-colors">購入する</button>
+                 </div>   
+
+                <div className="mt-12">
+                    <div>
+                        <h1 className="text-xl"> {item.name} </h1>
+                        <h1 className="text-xl font-bold mb-3">情報</h1>
+                    </div>
+                    <div className="w-full border-t-2 border-gray-400">
+                        <button className="w-1/2 py-4   border-r-[1px]">作品紹介</button>
+                        <button className="w-1/2 py-4 bg-gray-100 border-b-[1px]">イントロ</button>
                         {item.itemImgs?.slice(1).map((img) => (
-                            <img
+                            <div className="">
+                                 <img
                                 key={img.id}
                                 src={`/uploads/${img.attachedFileName}`}
                                 alt={item.name}
-                                className="w-full h-24 object-cover rounded-lg"
-                            />
+                                className=" w-2/3 mt-10 h-auto object-cover rounded-lg"
+                                />
+                            </div>
+                           
                         ))}
                     </div>
-                </div>
-                <div className="space-y-4">
-                    <div className="space-y-2">
-                        <p>{item.category.name}</p>
-                        {/* <p>在庫: {item.stock}点</p> */}
-                    </div>
-                    <h1 className="text-3xl font-bold">{item.name}</h1>
-                    <p className="text-xl font-semibold">¥{item.price.toLocaleString()}</p>
-                    <p className="text-gray-600">{item.intro}</p>
                     
-                    <button 
-                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
-                        onClick={handleAddToCart}
-                    >
-                        カートに入れる
-                    </button>
                 </div>
-            </div>
         </div>
     );
 }

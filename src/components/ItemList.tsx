@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Link from 'next/link';
+import PopularBooks from './PopularBooks';
 
 
 const ItemList = () => {
@@ -32,15 +33,10 @@ const ItemList = () => {
     
 
     useEffect(() => {
-
-        
         const fetchItems = async () => {
             const response = await fetch(`/api/items${selectedCategory ? `?categoryId=${selectedCategory}` : ''}`);
             const data: Item[] = await response.json();
 
-            console.log(data);  
-            console.log(selectedCategory)
-            console.log(response)
             setItems(data || []);
         };
         fetchItems();
@@ -85,6 +81,7 @@ const ItemList = () => {
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 spaceBetween={3}
+                min-width={20}
                 slidesPerView={window.innerWidth < 768 ? 3 : 6}
                 navigation
                 pagination={{ clickable: true }}
@@ -92,16 +89,23 @@ const ItemList = () => {
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.id}>
-                        <Link href={`/itemdetail/${item.id}`}>
+                        <Link href={`/pages/itemdetail/${item.id}`}>
                             <img className='w-44 border-[1px] rounded-md' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
                             <p className=''>{item.category.name}</p>
                             <p>{item.name}</p>
-                            <p>¥{item.price.toLocaleString()}</p>
+                            {/* <p>¥{item.price.toLocaleString()}</p> */}
                         </Link>
                         
                     </SwiperSlide>
                 ))} 
             </Swiper>
+            {
+                selectedCategory == null?
+                <PopularBooks />
+                :
+                <></>
+            }
+            
         </div>
     );
 };
