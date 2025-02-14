@@ -10,7 +10,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Link from 'next/link';
 
 
-const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initialCategories:Category[]}) => {
+const ItemList = () => {
     const [mounted, setMounted] = useState(false);
     const [items, setItems] = useState<Item[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);    
@@ -19,14 +19,20 @@ const ItemList = ({initialItems, initialCategories}:{initialItems:Item[], initia
 
     useEffect(() => {
         setMounted(true);
-        setItems(initialItems);
-        setCategories(initialCategories);
-    }, [initialItems, initialCategories]);
+    }, []);
 
+    useEffect(()=>{
+        const fetchCategory = async () =>{
+            const response = await fetch("/api/items/category");
+            const data : Category[] = await response.json();
+            setCategories(data || []);
+        }
+        fetchCategory();
+    },[])
     
 
     useEffect(() => {
-        if (!mounted) return;
+
         
         const fetchItems = async () => {
             const response = await fetch(`/api/items${selectedCategory ? `?categoryId=${selectedCategory}` : ''}`);

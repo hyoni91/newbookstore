@@ -4,14 +4,6 @@ import ItemDetail from "@/components/ItemDetail";
 import { useRouter } from "next/router";
 
 export default async function Home() {
-  
-  const items = await prisma.item.findMany({
-    include: {
-      category: true,
-      itemImgs: true
-    }
-  });
-  const categories = await prisma.category.findMany();
 
   return (
     <div>
@@ -27,7 +19,7 @@ export default async function Home() {
               <p className="text-white text-xl">最高の本をお届けします。</p>
             </div>
           </div>
-      <ItemList initialItems={items} initialCategories={categories} />
+      <ItemList />
     </div>
   );
 }
