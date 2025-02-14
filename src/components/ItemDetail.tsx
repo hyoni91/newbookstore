@@ -13,6 +13,8 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     const [item, setItem] = useState<Item | null>(null);
     const [loading, setLoading] = useState(true);
     const { userId } = useUserContext();
+    const [isExpanded, setIsExpanded] = useState(false);
+
     
 
 
@@ -70,7 +72,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                         <img 
                         src={`/uploads/${item.itemImgs?.[0]?.attachedFileName}`}
                         alt={item.name}
-                        className="border-[1px] h-auto object-cover rounded-lg"
+                        className="w-72 border-[1px] h-auto object-cover rounded-lg"
                     />
                     </div>
                     <div className=" flex w-full flex-col justify-center">
@@ -99,16 +101,26 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                         <button className="w-1/2 py-4   border-r-[1px]">作品紹介</button>
                         <button className="w-1/2 py-4 bg-gray-100 border-b-[1px]">イントロ</button>
                         {item.itemImgs?.slice(1).map((img) => (
-                            <div className="">
+                            <div className={`relative transition-all duration-300 ${isExpanded ? "h-auto" : "h-lvh overflow-hidden"}`}>
                                  <img
                                 key={img.id}
                                 src={`/uploads/${img.attachedFileName}`}
                                 alt={item.name}
                                 className=" w-2/3 mt-10 h-auto object-cover rounded-lg"
                                 />
+                                {!isExpanded && (
+                                     <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
+                                )}
                             </div>
-                           
+
                         ))}
+                            
+                            {isExpanded ? <></> : 
+                            <button
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className=" border-[1px] rounded w-2/3 py-2 mt-0 text-black-500 "
+                            >もっと</button>
+                            }
                     </div>
                     
                 </div>
