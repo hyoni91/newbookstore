@@ -2,7 +2,7 @@
 
 import { useUserContext } from "@/context/UserContext";
 import { MyCart } from "@/types/cart";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 export default function MyCartPage(){

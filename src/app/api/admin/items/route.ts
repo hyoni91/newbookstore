@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma";
 import { CreateItemRequest } from "@/types/item";
 import { saveFile } from "@/utils/fileUpload";
-import { randomUUID } from "crypto";
+// import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
-import path from "path";
+// import path from "path";
 
 export async function POST(request:Request) {
 

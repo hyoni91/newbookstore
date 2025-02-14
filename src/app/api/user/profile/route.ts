@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse, userAgent } from "next/server";
 import { verifyToken } from "../../auth/middleware";
 import prisma from "@/lib/prisma";
-import { JwtPayload } from "jsonwebtoken";
+// import { JwtPayload } from "jsonwebtoken";
 
 export async function GET(request: NextRequest) {
     

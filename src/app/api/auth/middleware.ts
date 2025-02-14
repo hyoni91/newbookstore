@@ -1,6 +1,6 @@
 
 //JWT가 유효한지 검증하는 미들웨어
-import { NextRequest,NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import  jwt, { JwtPayload }  from "jsonwebtoken";
 
 export function verifyToken(request:NextRequest):JwtPayload | null{
