@@ -1,7 +1,5 @@
 import ItemList from "@/components/ItemList";
-// import prisma from "../lib/prisma";
-// import ItemDetail from "@/components/ItemDetail";
-// import { useRouter } from "next/router";
+
 
 export default async function Home() {
 

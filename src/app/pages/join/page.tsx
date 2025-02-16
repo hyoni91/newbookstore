@@ -1,7 +1,5 @@
 "use client";
 
-// import { JoinFormData } from "@/types/auth";
-// import { useRouter } from "next/navigation";
 import React from "react";
 import JoinForm from "@/components/JoinForm";
 

@@ -1,9 +1,8 @@
 
 //JWT를 검증하여 인증된 사용자만 데이터를 가져올 수 있도록 설정
-import { NextRequest, NextResponse, userAgent } from "next/server";
+import { NextRequest, NextResponse} from "next/server";
 import { verifyToken } from "../../auth/middleware";
 import prisma from "@/lib/prisma";
-// import { JwtPayload } from "jsonwebtoken";
 
 export async function GET(request: NextRequest) {
     

@@ -100,8 +100,8 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     <div className="w-full border-t-2 border-gray-400">
                         <button className="w-1/2 py-4   border-r-[1px]">作品紹介</button>
                         <button className="w-1/2 py-4 bg-gray-100 border-b-[1px]">イントロ</button>
-                        {item.itemImgs?.slice(1).map((img) => (
-                            <div className={`relative transition-all duration-300 ${isExpanded ? "h-auto" : "h-lvh overflow-hidden"}`}>
+                        {item.itemImgs?.slice(1).map((img,id) => (
+                            <div key={id} className={`relative transition-all duration-300 ${isExpanded ? "h-auto" : "h-lvh overflow-hidden"}`}>
                                  <img
                                 key={img.id}
                                 src={`/uploads/${img.attachedFileName}`}

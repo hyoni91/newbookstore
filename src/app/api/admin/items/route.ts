@@ -1,9 +1,7 @@
 import prisma from "@/lib/prisma";
 import { CreateItemRequest } from "@/types/item";
 import { saveFile } from "@/utils/fileUpload";
-// import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
-// import path from "path";
 
 export async function POST(request:Request) {
 
@@ -38,7 +36,7 @@ export async function POST(request:Request) {
             },
         });
 
-            const { filePath : mainImgPath , fileName : mainImgName} = await saveFile(data.mainImg, 'uploads');
+            const { fileName : mainImgName} = await saveFile(data.mainImg, 'uploads');
 
         //Img 테이블에 mainImg 저장
         await prisma.itemImg.create({
@@ -52,7 +50,7 @@ export async function POST(request:Request) {
 
         // subImg가 있는 경우에만 생성
         if (data.subImg instanceof File) {
-            const { filePath : subImgPath , fileName : subImgName} = await saveFile(data.subImg, 'uploads');
+            const {fileName : subImgName} = await saveFile(data.subImg, 'uploads');
        
             await prisma.itemImg.create({
                 data: {

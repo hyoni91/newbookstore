@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 
 
 // category List 
-export async function GET(request: Request) {
+export async function GET() {
     try{
         const categories = await prisma.category.findMany({
             orderBy: {
