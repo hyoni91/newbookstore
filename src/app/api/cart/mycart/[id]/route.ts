@@ -5,10 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 //myCartPage
 
-export async function GET(request:NextRequest , {params} : {params : {id:string}}) {
+export async function GET(request:NextRequest ,  context : {params : {id:string}}) {
     
     try {
-        const userId = params.id;
+        const userId = context.params.id;
 
         if(!userId){
             return NextResponse.json({message: "UserId is required"} , {status : 400});
@@ -28,7 +28,7 @@ export async function GET(request:NextRequest , {params} : {params : {id:string}
         
        // MyCart 인터페이스에 맞게 데이터 변환
        const formattedCart: MyCart[] = cartItems.map(cartItem => ({
-        mainImg: cartItem.item.itemImgs[0].attachedFileName,
+        mainImg: cartItem.item.itemImgs[0]?.attachedFileName,
         itemName: cartItem.item.name,
         cnt: cartItem.cnt,
         price: cartItem.item.price,
