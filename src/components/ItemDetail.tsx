@@ -14,6 +14,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     const [loading, setLoading] = useState(true);
     const { userId } = useUserContext();
     const [isExpanded, setIsExpanded] = useState(false);
+    const [isIntro,setIsIntro] = useState(true);
 
     
 
@@ -98,29 +99,46 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                         <h1 className="text-xl font-bold mb-3">情報</h1>
                     </div>
                     <div className="w-full border-t-2 border-gray-400">
-                        <button className="w-1/2 py-4   border-r-[1px]">作品紹介</button>
-                        <button className="w-1/2 py-4 bg-gray-100 border-b-[1px]">イントロ</button>
-                        {item.itemImgs?.slice(1).map((img,id) => (
-                            <div key={id} className={`relative transition-all duration-300 ${isExpanded ? "h-auto" : "h-lvh overflow-hidden"}`}>
-                                 <img
-                                key={img.id}
-                                src={`/uploads/${img.attachedFileName}`}
-                                alt={item.name}
-                                className=" w-2/3 mt-10 h-auto object-cover rounded-lg"
-                                />
-                                {!isExpanded && (
-                                     <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
-                                )}
+
+                        <button className={`w-1/2 py-4   border-r-[1px] ${isIntro? "border-r-[1px]" : "border-b-[1px] bg-gray-100"}`} onClick={()=>{setIsIntro(true)}}>作品紹介</button>
+                        <button className={`w-1/2 py-4 ${isIntro? " bg-gray-100 border-b-[1px]":" "}`} onClick={()=>{setIsIntro(false)}}>イントロ</button>
+                        {
+                            isIntro ? 
+                            <>
+                            {item.itemImgs?.slice(1).map((img,id) => (
+                                <div key={id} className={`relative transition-all duration-300 ${isExpanded ? "h-auto" : "h-lvh overflow-hidden"}`}>
+                                     <img
+                                    key={img.id}
+                                    src={`/uploads/${img.attachedFileName}`}
+                                    alt={item.name}
+                                    className=" w-2/3 mt-10 h-auto object-cover rounded-lg"
+                                    />
+                                    {!isExpanded && (
+                                         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
+                                    )}
+                                </div>
+    
+                            ))}
+                                
+                                {isExpanded ? <></> : 
+                                <button
+                                onClick={() => setIsExpanded(!isExpanded)}
+                                className=" border-[1px] rounded w-2/3 py-2 mt-0 text-black-500 "
+                                >もっと</button>
+                                }
+                            </>
+
+                            :
+                            <div className="mt-10 mr-auto">
+                                <p>出版社：ドリム</p>
+                                <p>作家：ホシノアイ</p>
+                                <p>発売日：2023/12/12</p>
+                                <p className="mt-10 font-bold">内容について</p>
+                                {item.intro}
                             </div>
 
-                        ))}
-                            
-                            {isExpanded ? <></> : 
-                            <button
-                            onClick={() => setIsExpanded(!isExpanded)}
-                            className=" border-[1px] rounded w-2/3 py-2 mt-0 text-black-500 "
-                            >もっと</button>
-                            }
+                        }
+                        
                     </div>
                     
                 </div>

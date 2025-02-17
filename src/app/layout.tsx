@@ -37,34 +37,23 @@ export default function RootLayout({
   <UserProvider>
     <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen  flex flex-col`}
       >
         <header className="top-0 w-full bg-white shadow-sm z-50 px-6 ">
           <nav className="max-w-7xl mx-auto w-full h-16 px-4 flex justify-between items-center">
             <Link href="/" className="text-2xl font-bold text-gray-800">
               Book Shop
             </Link>
-            <div className="flex items-center space-x-6">
-              <div className="relative">
-                <input 
-                  placeholder="本を探す" 
-                  className="w-64 px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <svg className="w-5 h-5 absolute right-3 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
               <Header />
-            </div>
           </nav>
           
         </header>
 
-        <main className="flex-grow w-full max-w-7xl mx-auto px-6 pt-[10px] pb-16">
+        <main className="flex-grow w-full max-w-7xl mx-auto  px-6  pt-[10px] pb-16">
           {children}
         </main>
 
-        <footer className=" bg-gray-50 mt-auto py-8 w-full">
+        <footer className=" bg-gray-50 mt-auto px-6 py-8 w-full ">
           <div className="max-w-7xl mx-auto px-6 text-center text-gray-600">
             <p>© 2025 Book Shop. All rights reserved.</p>
           </div>

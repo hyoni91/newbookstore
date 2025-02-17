@@ -25,7 +25,7 @@ const PopularBooks = () => {
         <div>
             <div className='mt-14'>
                     <h1 className='font-bold'>カートランキング</h1>
-                    <div className='mt-5 grid grid-rows-3 grid-flow-col gap-2'>
+                    <div className='mt-5 grid grid-rows-3 grid-flow-col gap-2 overflow-auto'>
                         {
                             books.map((item,id)=>{
                                 return(
