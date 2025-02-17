@@ -16,6 +16,11 @@ const ItemList = () => {
     const [items, setItems] = useState<Item[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);    
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+    const [activetab, setActivetab] = useState("All");
+
+    const handleClick = (tab : string) =>{
+        setActivetab(tab);
+    }
 
 
     useEffect(() => {
@@ -60,16 +65,16 @@ const ItemList = () => {
 
     return (
         <div className='mt-6'>
-            <div className="flex text-1xl flex-wrap  text-gray-900 gap-16 mb-10  justify-center items-center">
-                <p className="cursor-pointer hover:text-gray-700" 
-                  onClick={() => setSelectedCategory(null)}
+            <div className={`flex text-1xl flex-wrap  text-gray-900 gap-16 mb-10  justify-center items-center}`}>
+                <p className={`cursor-pointer hover:text-gray-800  ${activetab == "All" ? "font-bold " : ""}`}
+                  onClick={() => {setSelectedCategory(null); handleClick("All")}}
                   >
                     All
                 </p>
                 {categories.map((category) => (
-                    <p className="cursor-pointer hover:font-bold"  
+                    <p className={`cursor-pointer hover:text-gray-800 ${activetab == category.name ? "font-bold" : ""}`} 
                       key={category.id} 
-                      onClick={() => setSelectedCategory(category.id)}
+                      onClick={() => {setSelectedCategory(category.id); handleClick(category.name)}}
                     >
                         {category.name}
                     </p>
