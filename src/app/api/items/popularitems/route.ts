@@ -8,7 +8,7 @@ export async function GET(){
             by : ["itemId"],
             _sum : {cnt : true},
             orderBy : {_sum: {cnt : "desc"}},
-            take : 3
+            take : 9
         });
 
         if (!popularBooks || popularBooks.length === 0) {

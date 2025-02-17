@@ -80,18 +80,22 @@ const ItemList = () => {
             </div>
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
-                spaceBetween={3}
-                min-width={20}
-                slidesPerView={window.innerWidth < 768 ? 3 : 6}
+                spaceBetween={2}
+                slidesPerView={6}
                 navigation
+                breakpoints={{
+                    320 : { slidesPerView: 3 }, 
+                    768 : { slidesPerView: 4 }, 
+                    1024 : { slidesPerView: 6 }, 
+                  }}
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 3000 }}
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.id}>
                         <Link href={`/pages/itemdetail/${item.id}`}>
-                            <img className='w-44 border-[1px] rounded-md' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
-                            <p className=''>{item.category.name}</p>
+                            <img className='w-44  border-[1px] rounded-md' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
+                            <p className='text-xs'>{item.category.name}</p>
                             <p>{item.name}</p>
                             {/* <p>¥{item.price.toLocaleString()}</p> */}
                         </Link>

@@ -2,10 +2,9 @@
 import prisma from "@/lib/prisma";
 import { MyCart } from "@/types/cart";
 import { NextRequest, NextResponse } from "next/server";
-
 //myCartPage
 
-export async function GET(request:NextRequest ,  context : {params : {id:string}}) {
+export async function GET(request:NextRequest , context: {params: {id: string}}) {
     
     try {
         const userId = context.params.id;

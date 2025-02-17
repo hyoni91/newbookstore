@@ -5,9 +5,9 @@ export default async function Home() {
 
   return (
     <div>
-      <div className="relative w-full ">
+      <div className="relative w-full">
             <img 
-              className="w-full h-[280px] object-cover object-center" 
+              className="w-full  h-[280px] object-cover object-center" 
               src="/images/book_banner.jpg" 
               alt="book_banner"
             />

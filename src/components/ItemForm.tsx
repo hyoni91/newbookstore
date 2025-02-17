@@ -59,7 +59,7 @@ export default function ItemForm({ initialCategories }: { initialCategories: Cat
                 </div>
                 <div>
                     <label htmlFor="price">値段</label>
-                    <input type="number" id="price" value={itemFormData.price} onChange={(e)=>setItemFormData({...itemFormData, price: Number(e.target.value)})}/>
+                    <input type="number" id="price"  onChange={(e)=>setItemFormData({...itemFormData, price: Number(e.target.value)})}/>
                 </div>
                 <div>
                     <label htmlFor="intro">商品紹介</label>
