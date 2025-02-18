@@ -5,7 +5,7 @@ import  jwt, { JwtPayload }  from "jsonwebtoken";
 
 export function verifyToken(request:NextRequest):JwtPayload | null{
     const authHeader = request.headers.get("Authorization");
-
+ 
     if(!authHeader){
         return null;
     }
