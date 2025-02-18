@@ -30,7 +30,7 @@ const PopularBooks = () => {
                             books.map((item,id)=>{
                                 return(
                                     // <div key={id} className='grid grid-cols-3 grid-flow-col gap-4  '>
-                                        <div className='flex gap-8'>
+                                        <div key={id} className='flex gap-8'>
                                             <div onClick={()=>{router.push(`/pages/itemdetail/${item.id}`)}} >
                                                 <img className='w-20 cursor-pointer border-[1px] rounded-md' src={`/uploads/${item.itemImgs?.[0].attachedFileName}`}/>
                                             </div>
