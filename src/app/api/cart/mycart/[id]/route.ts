@@ -4,10 +4,11 @@ import { MyCart } from "@/types/cart";
 import { NextRequest, NextResponse } from "next/server";
 //myCartPage
 
-export async function GET(request:NextRequest , context: {params: {id: string}}) {
+export async function GET(request:NextRequest) {
     
     try {
-        const userId = context.params.id;
+        const { searchParams } = new URL(request.url);
+        const userId = searchParams.get("userId");
 
         if(!userId){
             return NextResponse.json({message: "UserId is required"} , {status : 400});

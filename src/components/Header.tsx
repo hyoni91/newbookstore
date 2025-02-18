@@ -4,28 +4,14 @@ import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUserContext } from "@/context/UserContext";
-
+import useWindowWidth from "@/hooks/useWindowWidth";
 
 export default function Header(){
 
 const { userId, setUserId } = useUserContext();
 const [isLoggedIn , setIsLoggedIn] = useState(false);
-const [windowWidth, setWindowWidth] = useState<number>(0);
+const windowWidth = useWindowWidth();
 
-useEffect(()=>{
-    const width = window.innerWidth;
-    setWindowWidth(width);
-
-    window.addEventListener("resize", ()=>{
-        setWindowWidth(window.innerWidth);
-    });
-    return ()=>{
-        window.removeEventListener("resize", ()=>{
-            setWindowWidth(window.innerWidth);
-        });
-    };
-},[windowWidth]);
-  
 useEffect (()=>{
     const fetchUserProfile = async ()=>{
         const  token = window.localStorage.getItem("Token");

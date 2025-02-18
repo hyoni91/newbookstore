@@ -1,6 +1,7 @@
 "use client";
 
 import { useUserContext } from "@/context/UserContext";
+import useWindowWidth from "@/hooks/useWindowWidth";
 import { Item } from "@/types/item";
 import { useEffect, useState } from "react";
 
@@ -14,9 +15,8 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     const [loading, setLoading] = useState(true);
     const { userId } = useUserContext();
     const [isExpanded, setIsExpanded] = useState(false);
-    const [isIntro,setIsIntro] = useState(true);
-
-    
+    const [isIntro,setIsIntro] = useState(true)
+    const windowWidth = useWindowWidth();    
 
 
     useEffect(() => {
@@ -67,54 +67,61 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     };
 
     return (
-        <div className="px-10 py-10 max-w-6xl mx-auto p-4">
-                <div className="flex gap-10 ">
+        <div className="px-5 py-5 max-w-6xl mx-auto p-4">
+                <div className={`${windowWidth < 640? "flex gap-6" : "flex gap-10"} `}>
                     <div>
                         <img 
                         src={`/uploads/${item.itemImgs?.[0]?.attachedFileName}`}
                         alt={item.name}
-                        className="w-72 border-[1px] h-auto object-cover rounded-lg"
+                        className="w-40 sm:w-48 md:w-56 lg:w-72 border-[1px] h-auto object-cover rounded-lg"
                     />
+                        <button className="mt-2 py-2 w-40 sm:w-48 md:w-56 lg:w-72 border-[1px] rounded-lg font-center hover:border-gray-300" onClick={()=>{alert("準備中です")}}>立ち読み</button>
                     </div>
-                    <div className=" flex w-full flex-col justify-center">
-                        <p className="text-xs">{item.category.name}</p>
-                        <h1 className="text-xl font-bold">{item.name}</h1>
-                        <p className="text-m font-semibold">¥{item.price.toLocaleString()}</p>
+                    <div className=" flex w-full flex-col justify-center gap-4">
+                        <div>
+                            <p className="text-s">{item.category.name}</p>
+                            <h1 className="text-2xl font-bold">{item.name}</h1>
+                            <p className="text-m font-semibold">¥{item.price.toLocaleString()}</p>  
+                        </div>
+                        <div className="h-20">
+                            <p className="text-sm">電子図書 : 本書は電子版のサービスはございません。</p>
+                            <p className="text-sm">中古 : 多数あり</p>
+                        </div>
+                        <div className="mt-12  w-full flex gap-2 justify-start">
+                            <button 
+                                className="w-sm text-m  text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
+                                onClick={handleAddToCart}
+                            >
+                                <i className="bi bi-cart" />
+                            </button>
+                            <button className="w-32 sm:w-40 md:w-48 lg:w-52   text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-grey-600 transition-colors">購入する</button>
+                        </div> 
                     </div>
-                    
                 </div>
-                <div className="mt-10 w-full flex gap-2 justify-start">
-                    <button 
-                        className="w-sm text-m  text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
-                        onClick={handleAddToCart}
-                    >
-                        <i className="bi bi-cart" />
-                    </button>
-                    <button className="w-2/12 text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-grey-600 transition-colors">購入する</button>
-                 </div>   
+                  
 
-                <div className="mt-12">
+                <div className="mt-16">
                     <div>
-                        <h1 className="text-xl"> {item.name} </h1>
-                        <h1 className="text-xl font-bold mb-3">情報</h1>
+                        <h1 className="text-lg sm:text-xl md:text-1xl  lg:text-1xl"> {item.name} </h1>
+                        <h1 className="text-xl font-semibold mb-3">詳細内容</h1>
                     </div>
                     <div className="w-full border-t-2 border-gray-400">
 
                         <button className={`w-1/2 py-4   border-r-[1px] ${isIntro? "border-r-[1px]" : "border-b-[1px] bg-gray-100"}`} onClick={()=>{setIsIntro(true)}}>作品紹介</button>
                         <button className={`w-1/2 py-4 ${isIntro? " bg-gray-100 border-b-[1px]":" "}`} onClick={()=>{setIsIntro(false)}}>イントロ</button>
                         {
-                            isIntro ? 
+                            isIntro? 
                             <>
                             {item.itemImgs?.slice(1).map((img,id) => (
-                                <div key={id} className={`relative transition-all duration-300 ${isExpanded ? "h-auto" : "h-lvh overflow-hidden"}`}>
+                                <div key={id} className={`relative transition-all duration-300 ${isExpanded ? "h-auto" : windowWidth < 847? "h-96 overflow-hidden" : "h-svh overflow-hidden"}`}>
                                      <img
                                     key={img.id}
                                     src={`/uploads/${img.attachedFileName}`}
                                     alt={item.name}
                                     className=" w-2/3 mt-10 h-auto object-cover rounded-lg"
                                     />
-                                    {!isExpanded && (
-                                         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
+                                    {!isExpanded &&  (
+                                         <div className={`absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent `}></div>
                                     )}
                                 </div>
     
