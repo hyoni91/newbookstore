@@ -11,4 +11,5 @@ export interface MyCart{
    cnt :  number;
    price : number;
    date : string;
+   itemId : number;
 }

@@ -7,8 +7,9 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request:NextRequest) {
     
     try {
-        const { searchParams } = new URL(request.url);
-        const userId = searchParams.get("userId");
+        const paths = request.nextUrl.pathname.split("/");
+        const userId = paths[paths.length - 1]; // 'test3'을 가져옴
+        console.log("Extracted userId:", userId);
 
         if(!userId){
             return NextResponse.json({message: "UserId is required"} , {status : 400});
@@ -30,6 +31,7 @@ export async function GET(request:NextRequest) {
        const formattedCart: MyCart[] = cartItems.map(cartItem => ({
         mainImg: cartItem.item.itemImgs[0]?.attachedFileName,
         itemName: cartItem.item.name,
+        itemId: cartItem.itemId,
         cnt: cartItem.cnt,
         price: cartItem.item.price,
         allPrice: cartItem.cnt * cartItem.item.price, // 총 가격 계산

@@ -94,7 +94,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                             >
                                 <i className="bi bi-cart" />
                             </button>
-                            <button className="w-32 sm:w-40 md:w-48 lg:w-52   text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-grey-600 transition-colors">購入する</button>
+                            <button className="w-32 sm:w-40 md:w-48 lg:w-52   text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">購入する</button>
                         </div> 
                     </div>
                 </div>
