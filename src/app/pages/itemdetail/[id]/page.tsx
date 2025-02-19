@@ -1,7 +1,8 @@
 import ItemDetail from "@/components/ItemDetail";
 
-export default function ItemDetailPage({ params }: { params: { id: string } }) {
+export default async function ItemDetailPage({ params }: { params: { id: string } }) {
+   const resolvedPrams = await params;
 
 
-    return <ItemDetail itemId={params.id} />;
+    return <ItemDetail itemId={resolvedPrams.id} />;
 } 
