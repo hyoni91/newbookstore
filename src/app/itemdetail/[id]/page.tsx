@@ -1,13 +1,13 @@
 import ItemDetail from "@/components/ItemDetail";
 
-interface Params {
-    id: string;
-}
+type Params =  Promise<{id: string}>
 
 
-export default  function ItemDetailPage({ params }: { params: Params }) {
 
-    console.log(params.id);
+export default async function ItemDetailPage({ params }: { params: Params }) {
+    const { id } = await params;
+    console.log(id)
 
-    return <ItemDetail itemId={params.id} />;
+
+    return <ItemDetail itemId={id} />;
 } 
