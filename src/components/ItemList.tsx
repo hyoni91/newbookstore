@@ -98,7 +98,7 @@ const ItemList = () => {
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.id}>
-                        <Link href={`/pages/itemdetail/${item.id}`}>
+                        <Link href={`/itemdetail/${item.id}`}>
                             <img className='w-44  border-[1px] rounded-md' src={`uploads/${item.itemImgs?.[0].attachedFileName}`}/>
                             <p className='text-xs'>{item.category.name}</p>
                             <p>{item.name}</p>

@@ -67,7 +67,7 @@ export default function MyCartPage(){
                             <td>
                                 <input type="checkbox"/>
                             </td>
-                            <td onClick={()=>{router.push(`/pages/itemdetail/${data.itemId}`)}} className="flex flex-col items-center justify-center cursor-pointer">
+                            <td onClick={()=>{router.push(`/itemdetail/${data.itemId}`)}} className="flex flex-col items-center justify-center cursor-pointer">
                                 <img className={`w-20 sm:w-20 md:w-24 lg:w-32 mb-2 border-[1px] rounded-md`} src={`/uploads/${data.mainImg}`}/>
                                 <span >{data.itemName}</span>
                             </td>

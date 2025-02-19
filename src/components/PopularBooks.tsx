@@ -31,14 +31,14 @@ const PopularBooks = () => {
                                 return(
                                     // <div key={id} className='grid grid-cols-3 grid-flow-col gap-4  '>
                                         <div key={id} className='flex gap-8'>
-                                            <div onClick={()=>{router.push(`/pages/itemdetail/${item.id}`)}} >
+                                            <div onClick={()=>{router.push(`/itemdetail/${item.id}`)}} >
                                                 <img className='w-20 cursor-pointer border-[1px] rounded-md' src={`/uploads/${item.itemImgs?.[0].attachedFileName}`}/>
                                             </div>
                                             <div className='flex gap-8 items-center'>
                                                 <h4 className='font-bold'>{id+1}</h4>
                                                 <div className='w-40'>
                                                     <span className='text-xs'>{item.category.name}</span>
-                                                    <p onClick={()=>{router.push(`/pages/itemdetail/${item.id}`)}} className='cursor-pointer' >{item.name}</p>
+                                                    <p onClick={()=>{router.push(`/itemdetail/${item.id}`)}} className='cursor-pointer' >{item.name}</p>
                                                 </div>
                                             </div>
                                         </div>
