@@ -1,6 +1,11 @@
 import ItemDetail from "@/components/ItemDetail";
 
-export default  function ItemDetailPage({ params }: { params: { id: string } }) {
+interface Params {
+    id: string;
+}
+
+
+export default  function ItemDetailPage({ params }: { params: Params }) {
 
     console.log(params.id);
 
