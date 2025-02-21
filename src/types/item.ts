@@ -37,4 +37,5 @@ export interface CreateItemRequest{
 //item delete
 export interface DeleteItemRequest{
     id : number[];
+    userId : string;
 }

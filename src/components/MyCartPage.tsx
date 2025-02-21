@@ -11,15 +11,16 @@ export default function MyCartPage(){
     const {userId} = useUserContext();
     const [cartData, setCartData] = useState<MyCart[]>();
     const router = useRouter();
-    const [deleteId, setDeleteId] = useState<DeleteItemRequest[]>([]);
+    const [deleteId, setDeleteId] = useState<number[]>([]);
 
     const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {checked, value} = e.target;
         
         if(checked){
-            setDeleteId([...deleteId,{ id : Number(value)}])
+            setDeleteId(prev => [...prev, Number(value)]);
+
         }else{
-            setDeleteId(deleteId.filter((id) => id.id[0] !== Number(value)))
+            setDeleteId(prev => prev.filter(id => id !== Number(value)));
         }
     
     }
@@ -27,6 +28,10 @@ export default function MyCartPage(){
     console.log(deleteId)
 
     const handleDelete = async () => {
+        if (deleteId.length === 0) {
+            alert("삭제할 아이템을 선택해주세요.");
+            return;
+        }
         try {
             const response = await fetch('/api/cart/mycart/delete', {
                 method: 'DELETE',
@@ -34,7 +39,8 @@ export default function MyCartPage(){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id : deleteId
+                    id : deleteId,
+                    userId : userId
                 })
             });
             if (!response.ok) throw new Error('Failed to delete cart');
@@ -64,8 +70,6 @@ export default function MyCartPage(){
     }
         fetchCart();
     },[userId])
-
-    console.log(cartData)
 
 
     return(
@@ -129,7 +133,12 @@ export default function MyCartPage(){
                 総額 : <span className="font-semibold">¥{cartData? cartData.reduce((acc,cur)=> acc + cur.cnt*cur.price,0).toLocaleString() : 0}</span>
              </div>
              <div className="mt-10 flex justify-end gap-4">
-                <button className="w-2/12 text-gray-600 border-[1px] hover:text-gray-900 hover:border-gray-400 p-4 rounded-full font-medium ">削除する</button>
+                <button 
+                    className="w-2/12 text-gray-600 border-[1px] hover:text-gray-900 hover:border-gray-400 p-4 rounded-full font-medium"
+                    onClick={()=>{handleDelete()}}
+                >
+                        削除する
+                </button>
                 <button className="w-2/12 bg-blue-500 text-white p-4 rounded-full hover:bg-blue-600 transition-colors">購入する</button>
              </div>
             

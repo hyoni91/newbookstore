@@ -6,20 +6,23 @@ import type { DeleteItemRequest } from "@/types/item";
 export async function DELETE(request:NextRequest) {
     
 
-
     try {
-        const { id }: DeleteItemRequest = await request.json();
+        const { id , userId }: DeleteItemRequest = await request.json();
+        console.log(id);
+
     
         console.log("DeleteItemRequest:", { id });
         if (!id || !Array.isArray(id)) {
             return NextResponse.json({ message: "id is required" }, { status: 400 });
         }
 
-        const deleteItem = await prisma.item.deleteMany({
+        const deleteItem = await prisma.cart.deleteMany({
             where: {
-                id: {
+                userId : userId,
+                itemId: {
                     in: id
-                }
+                },
+                
             }
         });
 
