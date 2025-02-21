@@ -2,7 +2,7 @@
 
 import { useUserContext } from "@/context/UserContext";
 import { MyCart } from "@/types/cart";
-import { DeleteItemRequest } from "@/types/item";
+import { ChangeCartCntRequest, DeleteItemRequest } from "@/types/item";
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 
@@ -12,6 +12,7 @@ export default function MyCartPage(){
     const [cartData, setCartData] = useState<MyCart[]>();
     const router = useRouter();
     const [deleteId, setDeleteId] = useState<number[]>([]);
+    const [cntChangeData, setCntChangeData] = useState<ChangeCartCntRequest|undefined>();
 
     const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {checked, value} = e.target;
@@ -25,11 +26,9 @@ export default function MyCartPage(){
     
     }
 
-    console.log(deleteId)
-
     const handleDelete = async () => {
         if (deleteId.length === 0) {
-            alert("삭제할 아이템을 선택해주세요.");
+            alert("削除するアイテムを選択してください。");
             return;
         }
         try {
@@ -71,6 +70,46 @@ export default function MyCartPage(){
         fetchCart();
     },[userId])
 
+    const onChangeCntData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name,value} = e.target;
+        setCntChangeData(prev => {
+            const newValue = name === "cnt" ? Number(value) : value;  // cnt일 때만 수치로 변환
+
+            return {
+                ...prev,
+                [name]: newValue
+            } as ChangeCartCntRequest;
+        });
+    }
+
+    console.log("cntChangeData:", cntChangeData);
+
+
+    //changeCartCnt
+    const handleChangeCnt = async () => {
+        try {
+            const response = await fetch('/api/cart',{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    userId : userId,
+                    itemId : cntChangeData?.id,
+                    cnt : cntChangeData?.cnt
+            })
+        });
+        if(!response.ok) throw new Error("Failed to change cart cnt");
+        const data = await response.json();
+        console.log("Cart updated:", data);
+            
+        } catch (error) {
+            console.error("Error changing cart cnt:", error);
+            
+        }
+    }
+
+
 
     return(
         <div className="w-full px-10 py-10 mx-auto">
@@ -110,7 +149,9 @@ export default function MyCartPage(){
                                 <span >{data.itemName}</span>
                             </td>
                             <td>
-                                <input className="w-12 border-[1px] rounded-lg p-2 text-center" type="number" name="cnt" defaultValue={data.cnt}/>
+                                <input className="w-12 border-[1px] rounded-lg p-2 text-center" type="number" name="cnt" defaultValue={data.cnt} />
+                                <input type="hidden" name="id" value={data.itemId} />
+                                <p><button type="button" className="text-sm rounded-lg border-[1px] bg-blue-500 text-white mt-2 py-1 px-2 hover:bg-blue-600 ">変更</button></p>
                             </td>
                             <td>
                                 ¥{(data.price).toLocaleString()}

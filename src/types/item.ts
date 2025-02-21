@@ -39,3 +39,11 @@ export interface DeleteItemRequest{
     id : number[];
     userId : string;
 }
+
+
+//ChangeCartCnt
+export interface ChangeCartCntRequest{
+    id : number;
+    cnt : number;
+    userId : string;
+}
