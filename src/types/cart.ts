@@ -6,6 +6,7 @@ export interface AddCart{
 }
 
 export interface MyCart{
+   id : number;
    mainImg : string; //url
    itemName : string; //item name
    cnt :  number;

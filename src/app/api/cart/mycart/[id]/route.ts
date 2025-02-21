@@ -29,6 +29,7 @@ export async function GET(request:NextRequest) {
         
        // MyCart 인터페이스에 맞게 데이터 변환
        const formattedCart: MyCart[] = cartItems.map(cartItem => ({
+        id : cartItem.id,
         mainImg: cartItem.item.itemImgs[0]?.attachedFileName,
         itemName: cartItem.item.name,
         itemId: cartItem.itemId,
@@ -45,4 +46,36 @@ export async function GET(request:NextRequest) {
         return NextResponse.json({message : "Error fetching cart" , error}, {status :  500})
     }
     
+}
+
+
+export async function PUT(request:NextRequest){
+
+    try {
+        const paths = request.nextUrl.pathname.split("/");
+        const userId = paths[paths.length - 1]; // 'test3'을 가져옴
+        console.log("Extracted userId:", userId);
+
+        if(!userId){
+            return NextResponse.json({message: "UserId is required"} , {status : 400});
+        }
+
+        const body = await request.json();
+        console.log("ChangeCartCntRequest:", body);
+        
+        const changCnt = await prisma.cart.update({
+            where: {
+                id: body.id,
+                },
+            data : {
+                cnt : body.cnt
+            }
+        });
+
+        return NextResponse.json(changCnt, {status : 200});
+        
+    } catch (error) {
+        return NextResponse.json({message : "Error changing cart cnt" , error}, {status : 500});
+        
+    }
 }

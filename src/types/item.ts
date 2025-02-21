@@ -45,5 +45,5 @@ export interface DeleteItemRequest{
 export interface ChangeCartCntRequest{
     id : number;
     cnt : number;
-    userId : string;
+
 }

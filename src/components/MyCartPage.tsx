@@ -68,15 +68,16 @@ export default function MyCartPage(){
         }
     }
         fetchCart();
-    },[userId])
+    },[userId, cntChangeData])
 
-    const onChangeCntData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeCntData = (e: React.ChangeEvent<HTMLInputElement> , id : number) => {
         const {name,value} = e.target;
         setCntChangeData(prev => {
             const newValue = name === "cnt" ? Number(value) : value;  // cnt일 때만 수치로 변환
 
             return {
                 ...prev,
+                id : id,
                 [name]: newValue
             } as ChangeCartCntRequest;
         });
@@ -87,21 +88,25 @@ export default function MyCartPage(){
 
     //changeCartCnt
     const handleChangeCnt = async () => {
+        if(!cntChangeData){
+            alert("数量を選択してください。");
+            return;
+        }
+
         try {
-            const response = await fetch('/api/cart',{
-                method:"POST",
+            const response = await fetch(`/api/cart/mycart/${userId}`,{
+                method:"PUT",
                 headers:{
                     "Content-Type":"application/json"
                 },
                 body:JSON.stringify({
-                    userId : userId,
-                    itemId : cntChangeData?.id,
+                    id : cntChangeData?.id,
                     cnt : cntChangeData?.cnt
             })
         });
         if(!response.ok) throw new Error("Failed to change cart cnt");
         const data = await response.json();
-        console.log("Cart updated:", data);
+        alert("数量が変更されました。");
             
         } catch (error) {
             console.error("Error changing cart cnt:", error);
@@ -149,13 +154,16 @@ export default function MyCartPage(){
                                 <span >{data.itemName}</span>
                             </td>
                             <td>
-                                <input className="w-12 border-[1px] rounded-lg p-2 text-center" type="number" name="cnt" defaultValue={data.cnt} onChange={onChangeCntData}/>
+                                <input 
+                                    className="w-12 border-[1px] rounded-lg p-2 text-center" 
+                                    type="number" name="cnt" 
+                                    defaultValue={data.cnt} 
+                                    onChange={(e)=>{onChangeCntData(e,data.id)}}
+                                />
                                 <p>
                                     <button 
                                         type="button" 
                                         className="text-sm rounded-lg border-[1px] bg-blue-500 text-white mt-2 py-1 px-2 hover:bg-blue-600"
-                                        name="id"
-                                        value={data.itemId}
                                         onClick={()=>{handleChangeCnt()}}
                                     >
                                             変更
