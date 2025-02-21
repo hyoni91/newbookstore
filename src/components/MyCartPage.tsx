@@ -149,9 +149,18 @@ export default function MyCartPage(){
                                 <span >{data.itemName}</span>
                             </td>
                             <td>
-                                <input className="w-12 border-[1px] rounded-lg p-2 text-center" type="number" name="cnt" defaultValue={data.cnt} />
-                                <input type="hidden" name="id" value={data.itemId} />
-                                <p><button type="button" className="text-sm rounded-lg border-[1px] bg-blue-500 text-white mt-2 py-1 px-2 hover:bg-blue-600 ">変更</button></p>
+                                <input className="w-12 border-[1px] rounded-lg p-2 text-center" type="number" name="cnt" defaultValue={data.cnt} onChange={onChangeCntData}/>
+                                <p>
+                                    <button 
+                                        type="button" 
+                                        className="text-sm rounded-lg border-[1px] bg-blue-500 text-white mt-2 py-1 px-2 hover:bg-blue-600"
+                                        name="id"
+                                        value={data.itemId}
+                                        onClick={()=>{handleChangeCnt()}}
+                                    >
+                                            変更
+                                    </button>
+                                </p>
                             </td>
                             <td>
                                 ¥{(data.price).toLocaleString()}
