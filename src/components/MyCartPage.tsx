@@ -2,6 +2,7 @@
 
 import { useUserContext } from "@/context/UserContext";
 import { MyCart } from "@/types/cart";
+import { DeleteItemRequest } from "@/types/item";
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 
@@ -10,6 +11,39 @@ export default function MyCartPage(){
     const {userId} = useUserContext();
     const [cartData, setCartData] = useState<MyCart[]>();
     const router = useRouter();
+    const [deleteId, setDeleteId] = useState<DeleteItemRequest[]>([]);
+
+    const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {checked, value} = e.target;
+        
+        if(checked){
+            setDeleteId([...deleteId,{ id : Number(value)}])
+        }else{
+            setDeleteId(deleteId.filter((id) => id.id[0] !== Number(value)))
+        }
+    
+    }
+
+    console.log(deleteId)
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch('/api/cart/mycart/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id : deleteId
+                })
+            });
+            if (!response.ok) throw new Error('Failed to delete cart');
+            const data = await response.json();
+            console.log('Cart deleted:', data);
+        } catch (error) {
+            console.error('Error deleting cart:', error);
+        }
+    }
 
     useEffect(()=>{
         if(!userId){
@@ -65,7 +99,7 @@ export default function MyCartPage(){
                         <tr key={id}>
                             <td>{id+1}</td>
                             <td>
-                                <input type="checkbox"/>
+                                <input type="checkbox" value={data.itemId}  onChange={handleCheck}/>
                             </td>
                             <td onClick={()=>{router.push(`/itemdetail/${data.itemId}`)}} className="flex flex-col items-center justify-center cursor-pointer">
                                 <img className={`w-20 sm:w-20 md:w-24 lg:w-32 mb-2 border-[1px] rounded-md`} src={`/uploads/${data.mainImg}`}/>

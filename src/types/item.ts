@@ -33,3 +33,8 @@ export interface CreateItemRequest{
     mainImg: File | undefined;
     subImg?: File | undefined;
 }
+
+//item delete
+export interface DeleteItemRequest{
+    id : number[];
+}
