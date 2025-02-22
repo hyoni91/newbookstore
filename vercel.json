@@ -1,25 +1,15 @@
-{ "version": 2,
-    "builds": [
-      {
-        "src": "package.json",
-        "use": "@vercel/node"
-      }
-    ],
-    "build": {
-      "env": {
-        "PRISMA_GENERATE": "true"
-      }
-    },
-    "rewrites": [
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "백엔드경로/api/$1"
     }
   ]
-  }
-  
-   
+}
