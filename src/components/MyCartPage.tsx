@@ -155,7 +155,7 @@ export default function MyCartPage(){
                             </td>
                             <td>
                                 <input 
-                                    className="w-12 border-[1px] rounded-lg p-2 text-center" 
+                                    className="w-14 border-[1px] rounded-lg p-2 text-center" 
                                     type="number" name="cnt" 
                                     defaultValue={data.cnt} 
                                     onChange={(e)=>{onChangeCntData(e,data.id)}}
