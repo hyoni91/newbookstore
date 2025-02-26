@@ -5,7 +5,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUserContext } from "@/context/UserContext";
 import useWindowWidth from "@/hooks/useWindowWidth";
-import { Item } from "@prisma/client";
+import { Item as PrismaItem } from "@prisma/client";
+import { useRouter } from "next/navigation";
+
+interface Item extends PrismaItem {
+  itemImgs?: { attachedFileName: string }[];
+}
 
 export default function Header(){
 
@@ -15,17 +20,17 @@ const windowWidth = useWindowWidth();
 const [name, setName] = useState<string>("");
 const [items, setItems] = useState<Item[]>([]);
 const [isSearch, setIsSearch] = useState(false);
+const router = useRouter();
 
 const searchItem = async () => {
+    if(name === ""){
+        return;
+    }
     const response = await fetch(`/api/items/search?name=${name}`);
     const data: Item[] = await response.json();
     setItems(data || []);
     setIsSearch(!isSearch);
 }
-
-console.log("name:" + name);
-console.log(items);
-
 
 useEffect (()=>{
     const fetchUserProfile = async ()=>{
@@ -78,10 +83,10 @@ const handleLogout = () =>{
                   className="max-w-64  px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 <svg 
-                    className="w-5 h-5 absolute right-3 top-2.5 text-gray-400" 
+                    className="w-5 h-5 absolute right-3 top-2.5 text-gray-400 cursor-pointer" 
                     fill="none" stroke="currentColor" 
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                    onClick={searchItem}>
+                    onClick={()=>{searchItem(); setIsSearch(!isSearch)}} >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -110,18 +115,28 @@ const handleLogout = () =>{
         <div className="z-500 w-60 p-5 bg-white absolute top-14 border-[1px]">
                 <p>
                     {
-                        items.length === 0?
-                        <p>検索結果がありません</p>
+                        items.length === 0 ?
+                        <p className="text-sm">検索結果がありません</p>
                         :
-                        <p>検索結果</p>
+                        <p className="text-sm">検索結果</p>
                     }
                     {
 
                         items.map((item,id)=>{
                             return(
-                                <div key={id}>
-                                    <img className="w-24" src={`/uploads/${item.itemImgs?.[0].attachedFileName}`} alt="main img"/>
-                                    <p>{item.name}</p>
+                                <div 
+                                    className="mt-2 flex justify-start items-center gap-2 cursor-pointer" 
+                                    key={id}
+                                    onClick={()=>{router.push(`/itemdetail/${item.id}`); setIsSearch(false)}}
+                                >
+                                    <img 
+                                        className="w-20 border-[1px] rounded-md" 
+                                        src={`/uploads/${item.itemImgs?.[0].attachedFileName}`}
+                                         alt="main img"
+                                    />
+                                    <div >
+                                        <p className="text-sm">{item.name}</p>
+                                    </div>
                                 </div>
                             )
                         }
