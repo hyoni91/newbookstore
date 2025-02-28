@@ -14,6 +14,8 @@ export default function MyCartPage(){
     const [deleteId, setDeleteId] = useState<number[]>([]);
     const [cntChangeData, setCntChangeData] = useState<ChangeCartCntRequest|undefined>();
 
+    console.log("UserId:", userId);
+
     const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {checked, value} = e.target;
         

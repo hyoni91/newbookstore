@@ -116,7 +116,7 @@ const handleLogout = () =>{
             isLoggedIn ? 
             <div className="flex ">
                  <p className="px-2 py-2 mt-1">{userId}様</p> 
-                 <Link href="mycart" className="px-2 py-2 text-xl"><i className="bi bi-cart4 " /></Link>
+                 <Link href="/mycart" className="px-2 py-2 text-xl"><i className="bi bi-cart4 " /></Link>
                  <button className="px-2 text-xl mt-1" onClick={handleLogout}><i className="bi bi-box-arrow-right" /></button>
             </div>
             :
