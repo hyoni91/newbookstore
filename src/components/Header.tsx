@@ -7,6 +7,7 @@ import { useUserContext } from "@/context/UserContext";
 import useWindowWidth from "@/hooks/useWindowWidth";
 import { Item as PrismaItem } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { on } from "events";
 
 interface Item extends PrismaItem {
   itemImgs?: { attachedFileName: string }[];
@@ -22,15 +23,34 @@ const [items, setItems] = useState<Item[]>([]);
 const [isSearch, setIsSearch] = useState(false);
 const router = useRouter();
 
+ // 검색어가 바뀔 때마다 자동으로 검색이 실행되도록 설정
+ useEffect(() => {
+    if (name.trim() !== "") {
+        searchItem();
+    }
+    if(name === ""){
+        setIsSearch(false);
+    }
+
+}, [name]);
+
 const searchItem = async () => {
     if(name === ""){
         return;
     }
+
     const response = await fetch(`/api/items/search?name=${name}`);
     const data: Item[] = await response.json();
     setItems(data || []);
     setIsSearch(!isSearch);
 }
+
+//Click Enter key
+// const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => { 
+//     if (e.key === "Enter") {
+//         searchItem();
+//     }
+// };
 
 useEffect (()=>{
     const fetchUserProfile = async ()=>{
@@ -80,6 +100,7 @@ const handleLogout = () =>{
                     type="text"
                     value={name}
                     onChange={(e)=>setName(e.target.value)}
+                    // onKeyPress={handleKeyPress} click enter key
                   className="max-w-64  px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 <svg 
