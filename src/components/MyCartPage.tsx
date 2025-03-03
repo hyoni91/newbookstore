@@ -2,7 +2,7 @@
 
 import { useUserContext } from "@/context/UserContext";
 import { MyCart } from "@/types/cart";
-import { ChangeCartCntRequest, DeleteItemRequest } from "@/types/item";
+import { ChangeCartCntRequest } from "@/types/item";
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 

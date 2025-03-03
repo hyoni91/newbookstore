@@ -7,7 +7,6 @@ import { useUserContext } from "@/context/UserContext";
 import useWindowWidth from "@/hooks/useWindowWidth";
 import { Item as PrismaItem } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { on } from "events";
 
 interface Item extends PrismaItem {
   itemImgs?: { attachedFileName: string }[];
@@ -27,10 +26,9 @@ const router = useRouter();
  useEffect(() => {
     if (name.trim() !== "") {
         searchItem();
-    }
-    if(name === ""){
+      } else {
         setIsSearch(false);
-    }
+      }
 
 }, [name]);
 
