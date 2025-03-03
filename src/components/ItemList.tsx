@@ -46,7 +46,7 @@ const ItemList = () => {
         };
         fetchItems();
       
-    }, [selectedCategory,]);
+    }, [selectedCategory]);
 
 
     if (!mounted) return null;
