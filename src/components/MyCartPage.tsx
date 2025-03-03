@@ -107,7 +107,6 @@ export default function MyCartPage(){
             })
         });
         if(!response.ok) throw new Error("Failed to change cart cnt");
-        const data = await response.json();
         alert("数量が変更されました。");
             
         } catch (error) {

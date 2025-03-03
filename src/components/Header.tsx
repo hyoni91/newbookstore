@@ -22,18 +22,10 @@ const [items, setItems] = useState<Item[]>([]);
 const [isSearch, setIsSearch] = useState(false);
 const router = useRouter();
 
- // 검색어가 바뀔 때마다 자동으로 검색이 실행되도록 설정
- useEffect(() => {
-    if (name.trim() !== "") {
-        searchItem();
-      } else {
-        setIsSearch(false);
-      }
-
-}, [name]);
 
 const searchItem = async () => {
-    if(name === ""){
+    if(name.trim() === ""){
+        setIsSearch(false);  // 이름이 비었을 때는 검색 상태를 false로 설정
         return;
     }
 
@@ -43,12 +35,12 @@ const searchItem = async () => {
     setIsSearch(!isSearch);
 }
 
-//Click Enter key
-// const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => { 
-//     if (e.key === "Enter") {
-//         searchItem();
-//     }
-// };
+
+   // 검색어가 바뀔 때마다 자동으로 검색 실행
+   useEffect(() => {
+    searchItem();
+  }, [name]);
+
 
 useEffect (()=>{
     const fetchUserProfile = async ()=>{
