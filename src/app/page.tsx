@@ -1,8 +1,10 @@
 import ItemList from "@/components/ItemList";
+import { useEffect } from "react";
 
 
 
 export default async function Home() {
+
 
   return (
     <div>

@@ -8,17 +8,35 @@ import React, { useEffect, useState } from 'react';
 const PopularBooks = () => {
     const [books, setBooks] = useState<Item[]>([])
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
+
+
+    // if (!Array.isArray(books)) {
+    //     return <div>No books available</div>; // books가 배열이 아닐 경우 처리
+    //   }
+  
 
     useEffect(()=>{
         const fetchBooks = async ()=> {
-            const response = await fetch("/api/items/popularitems");
-            const data : Item[] = await response.json();
-            setBooks(data || []);
-        } 
+            setIsLoading(true);
+            try {
+                const response = await fetch("/api/items/popularitems");
+                const data: Item[] = await response.json();
+                setBooks(data || []);
+            } catch (error) {
+                console.error("Error fetching books:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
         fetchBooks();
     },[])
 
     console.log("Popular-Books : ", books)
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
 
     return (
