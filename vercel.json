@@ -6,6 +6,9 @@
       "use": "@vercel/next"
     }
   ],
+  "env": {
+    "DATABASE_URL": "mysql://next_root:nextmariadb@nextjs-bookstore.cl44wkw02pc8.ap-northeast-1.rds.amazonaws.com:3306/nextjs_bookstore"
+  },
   "rewrites": [
     {
       "source": "/(.*)",
