@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function LoginForm(){
-    const router = useRouter();
+    // const router = useRouter();
 
     const [loginData, setLoginData] = useState<LoginFormData>({
         id : '',
@@ -26,7 +26,7 @@ export default function LoginForm(){
         try {
             const response = await fetch("/api/auth/login",{
                 method : "POST",
-                headers : { "Content-Type" : "application.json" },
+                headers : { "Content-Type" : "application/json" },
                 body : JSON.stringify({id : loginData.id, password : loginData.password}),
             });
            
@@ -34,12 +34,14 @@ export default function LoginForm(){
 
             if(response.ok){
                 localStorage.setItem("Token", data.token); //JWT저장
-                router.push("/")
+                window.location.href = "/";
             }else{
+                alert("password or id is wrong");
                 console.error(data.message)
             }
             
         } catch (error) {
+            
             console.error("Error during registration" , error)
             alert("error")            
         }
