@@ -18,6 +18,8 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     const [isIntro,setIsIntro] = useState(true)
     const windowWidth = useWindowWidth();    
 
+    console.log("ItemDetail:", item);
+
 
     useEffect(() => {
         const fetchItem = async () => {

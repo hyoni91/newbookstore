@@ -10,12 +10,6 @@ const PopularBooks = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
 
-
-    // if (!Array.isArray(books)) {
-    //     return <div>No books available</div>; // books가 배열이 아닐 경우 처리
-    //   }
-  
-
     useEffect(()=>{
         const fetchBooks = async ()=> {
             setIsLoading(true);
@@ -31,8 +25,6 @@ const PopularBooks = () => {
         };
         fetchBooks();
     },[])
-
-    console.log("Popular-Books : ", books)
 
     if (isLoading) {
         return <div>Loading...</div>;
