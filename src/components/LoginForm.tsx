@@ -1,7 +1,6 @@
 "use client"
 
 import { LoginFormData } from "@/types/user";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function LoginForm(){
