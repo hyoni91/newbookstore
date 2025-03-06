@@ -24,7 +24,17 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     useEffect(() => {
         const fetchItem = async () => {
             try {
-                const response = await fetch(`/api/items/detail?id=${itemId}`);
+                const response = await fetch(`/api/items/detail?id=${itemId}`,{
+                    method:"GET",
+                    headers:{
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0',
+                    }
+                });
+                console.log("Response status:", response.status);
+                console.log("Response headers:", response.headers);
+                
                 if (!response.ok) throw new Error('Failed to fetch item');
                 const data = await response.json();
                 setItem(data);
