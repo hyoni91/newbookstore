@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   env: {
     DB_HOST: process.env.DB_HOST,
@@ -10,24 +9,26 @@ const nextConfig: NextConfig = {
     DB_PORT: process.env.DB_PORT,
     DATABASE_URL: process.env.DATABASE_URL,
   },
+  experimental: {
+    appDir: true,  // app 디렉토리 사용 활성화
+  },
   async headers() {
     return [
       {
-        // 동적 라우팅 URL에 대해 캐시 무효화 설정
-        source: '/itemdetail/:id', // 여기서는 예시로 itemdetail/[id] 동적 페이지를 설정
+        source: '/itemdetail/:id', // 예시 동적 페이지 경로
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-store',  // 캐시 저장을 하지 않도록 설정
+            value: 'no-store',
           },
         ],
       },
       {
-        source: '/api/cart/mycart/:id', // 동적 라우팅 API 경로 설정
+        source: '/api/cart/mycart/:id',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-store',  // 캐시 저장을 하지 않도록 설정
+            value: 'no-store',
           },
         ],
       },
@@ -35,4 +36,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
