@@ -10,7 +10,7 @@ const nextConfig = {
     DATABASE_URL: process.env.DATABASE_URL,
   },
   experimental: {
-    appDir: true,  // app 디렉토리 사용 활성화
+    appDir: false,  // app 디렉토리 사용 활성화
   },
   async headers() {
     return [
