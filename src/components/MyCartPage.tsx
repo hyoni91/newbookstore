@@ -59,7 +59,17 @@ export default function MyCartPage(){
         const fetchCart = async () => {
 
         try {
-                const response = await fetch(`/api/cart/mycart/${userId}`);
+                const response = await fetch(`/api/cart/mycart/${userId}`,{
+                    method:"GET",
+                    headers:{
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0',
+                    }
+                });
+                console.log("Response status:", response.status);
+                console.log("Response headers:", response.headers);
+                
                 if(!response.ok)throw new Error("Failed to fetch cart");
                 const data = await response.json();
                 setCartData(data);
@@ -99,7 +109,7 @@ export default function MyCartPage(){
             const response = await fetch(`/api/cart/mycart/${userId}`,{
                 method:"PUT",
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
                 },
                 body:JSON.stringify({
                     id : cntChangeData?.id,
