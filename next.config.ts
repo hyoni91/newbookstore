@@ -9,9 +9,6 @@ const nextConfig = {
     DB_PORT: process.env.DB_PORT,
     DATABASE_URL: process.env.DATABASE_URL,
   },
-  experimental: {
-    appDir: false,  // app 디렉토리 사용 활성화
-  },
   async headers() {
     return [
       {
