@@ -67,11 +67,11 @@ export default function MyCartPage(){
                         'Expires': '0',
                     }
                 });
-                console.log("Response status:", response.status);
-                console.log("Response headers:", response.headers);
+                const text = await response.text();
+                console.log("Response Text:", text);  // 텍스트로 응답 확인
                 
                 if(!response.ok)throw new Error("Failed to fetch cart");
-                const data = await response.json();
+                const data = JSON.parse(text);  // 직접 파싱
                 setCartData(data);
             }
             
