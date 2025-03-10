@@ -21,6 +21,7 @@ const [name, setName] = useState<string>("");
 const [items, setItems] = useState<Item[]>([]);
 const [isSearch, setIsSearch] = useState(false);
 const router = useRouter();
+const [dropMenu, setDropMenu] = useState(false)
 
 
 const searchItem = async () => {
@@ -79,8 +80,18 @@ const handleLogout = () =>{
         <div>
         {
             windowWidth < 768 ?
-            <div>
-                <i className="bi bi-list" />
+            <div className="relative">
+                <span className="relative " onClick={()=>setDropMenu(!dropMenu)}><i className="bi bi-list px-4 py-2 " /></span>
+                {
+                    dropMenu?
+                    <div className="flex flex-col absolute top-8 right-0 w-16 mr-auto py-2 px-2 gap-1 text-center bg-white border shadow-lg rounded-md z-10 bg-white">
+                        <Link href={"/login"} onClick={()=>setDropMenu(false)} className="hover:font-bold">Login</Link>
+                        <Link href={"/join"} onClick={()=>setDropMenu(false)} className="hover:font-bold">Join</Link>
+                    </div>
+                 :
+                 null
+                }
+                
             </div>
             :
         <div className="flex items-center space-x-6">

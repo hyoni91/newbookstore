@@ -67,14 +67,14 @@ const ItemList = () => {
 
     return (
         <div className='mt-6'>
-            <div className={`flex text-1xl flex-wrap  text-gray-900 ${windowWidth < 768 ? "gap-3" : "gap-16" } mb-10  justify-center items-center}`}>
-                <p className={`cursor-pointer hover:text-gray-800  ${activetab == "All" ? "font-bold " : ""}`}
+            <div className={`flex text-1xl flex-wrap  ${windowWidth < 768 ? "gap-3" : "gap-16" } mb-10  justify-center items-center}`}>
+                <p className={`cursor-pointer  ${activetab == "All" ? "font-bold " : ""}`}
                   onClick={() => {setSelectedCategory(null); handleClick("All")}}
                   >
                     All
                 </p>
                 {categories.map((category) => (
-                    <p className={`cursor-pointer hover:text-gray-800 ${activetab == category.name ? "font-bold" : ""}`} 
+                    <p className={`cursor-pointer ${activetab == category.name ? "font-bold" : ""}`} 
                       key={category.id} 
                       onClick={() => {setSelectedCategory(category.id); handleClick(category.name)}}
                     >
