@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Link from 'next/link';
 import PopularBooks from './PopularBooks';
+import useWindowWidth from '@/hooks/useWindowWidth';
 
 
 const ItemList = () => {
@@ -17,6 +18,7 @@ const ItemList = () => {
     const [categories, setCategories] = useState<Category[]>([]);    
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
     const [activetab, setActivetab] = useState("All");
+    const windowWidth = useWindowWidth();
 
     const handleClick = (tab : string) =>{
         setActivetab(tab);
@@ -65,7 +67,7 @@ const ItemList = () => {
 
     return (
         <div className='mt-6'>
-            <div className={`flex text-1xl flex-wrap  text-gray-900 gap-16 mb-10  justify-center items-center}`}>
+            <div className={`flex text-1xl flex-wrap  text-gray-900 ${windowWidth < 768 ? "gap-3" : "gap-16" } mb-10  justify-center items-center}`}>
                 <p className={`cursor-pointer hover:text-gray-800  ${activetab == "All" ? "font-bold " : ""}`}
                   onClick={() => {setSelectedCategory(null); handleClick("All")}}
                   >

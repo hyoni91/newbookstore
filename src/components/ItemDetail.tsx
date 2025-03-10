@@ -80,7 +80,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
 
     return (
         <div className="px-5 py-5 max-w-6xl mx-auto p-4">
-                <div className={`${windowWidth < 640? "flex gap-6" : "flex gap-10"} `}>
+                <div className={`${windowWidth < 640? "flex flex-col gap-4  items-center" : "flex gap-10"} `}>
                     <div>
                         <img 
                         src={`/uploads/${item.itemImgs?.[0]?.attachedFileName}`}
@@ -89,25 +89,36 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     />
                         <button className="mt-2 py-2 w-40 sm:w-48 md:w-56 lg:w-72 border-[1px] rounded-lg font-center hover:border-gray-300" onClick={()=>{alert("準備中です")}}>立ち読み</button>
                     </div>
-                    <div className=" flex w-full flex-col justify-center gap-4">
+                    <div className={` ${windowWidth <640? "flex w-full flex-col items-center "  : "flex w-full flex-col justify-center gap-4" } `}>
                         <div>
                             <p className="text-s">{item.category.name}</p>
                             <h1 className="text-2xl font-bold">{item.name}</h1>
-                            <p className="text-m font-semibold">¥{item.price.toLocaleString()}</p>  
+                            <p className="text-m font-semibold mb-2">¥{item.price.toLocaleString()}</p>  
                         </div>
-                        <div className="h-20">
-                            <p className="text-sm">電子図書 : 本書は電子版のサービスはございません。</p>
-                            <p className="text-sm">中古 : 多数あり</p>
-                        </div>
-                        <div className="mt-12  w-full flex gap-2 justify-start">
-                            <button 
-                                className="w-sm text-m  text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
-                                onClick={handleAddToCart}
-                            >
-                                <i className="bi bi-cart" />
-                            </button>
-                            <button className="w-32 sm:w-40 md:w-48 lg:w-52   text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">購入する</button>
-                        </div> 
+                       
+                            {
+                                windowWidth <640?
+                                null
+                                :
+                                <>
+                                    <div className="h-20">
+                                        <p className="text-sm w-32">電子図書 : 本書は電子版のサービスはございません。</p>
+                                        <p className="text-sm">中古 : 多数あり</p>
+                                    </div>
+                                    <div className={` w-full flex gap-2 mt-12  justify-start"`}>
+                                        <button 
+                                            className="w-sm text-m  text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
+                                            onClick={handleAddToCart}
+                                        >
+                                            <i className="bi bi-cart" />
+                                        </button>
+                                        <button className="w-32 sm:w-40 md:w-48 lg:w-52   text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">購入する</button>
+                                    </div> 
+                                </>
+                            }
+                            
+                        
+                        
                     </div>
                 </div>
                   
@@ -125,12 +136,12 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                             isIntro? 
                             <>
                             {item.itemImgs?.slice(1).map((img,id) => (
-                                <div key={id} className={`relative transition-all duration-300 ${isExpanded ? "h-auto" : windowWidth < 847? "h-96 overflow-hidden" : "h-svh overflow-hidden"}`}>
+                                <div key={id} className={` relative transition-all duration-300 ${isExpanded ? "h-auto" : windowWidth < 847? "h-96 overflow-hidden" : "h-svh overflow-hidden"}`}>
                                      <img
                                     key={img.id}
                                     src={`/uploads/${img.attachedFileName}`}
                                     alt={item.name}
-                                    className=" w-2/3 mt-10 h-auto object-cover rounded-lg"
+                                    className={` mt-10 h-auto object-cover rounded-lg ${windowWidth < 640 ? "w-full " : "w-2/3 "} `}
                                     />
                                     {!isExpanded &&  (
                                          <div className={`absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent `}></div>
@@ -142,7 +153,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                                 {isExpanded ? <></> : 
                                 <button
                                 onClick={() => setIsExpanded(!isExpanded)}
-                                className=" border-[1px] rounded w-2/3 py-2 mt-0 text-black-500 "
+                                className={`  py-2 mt-0 text-black-500  border-[1px] rounded ${windowWidth < 640 ? "w-full":" w-2/3 "}`}
                                 >もっと</button>
                                 }
                             </>
@@ -161,6 +172,20 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     </div>
                     
                 </div>
+                 {/* Buttons for Mobile */}
+            {windowWidth < 640 && (
+                <div className="fixed bottom-0 left-0 right-0 bg-white py-4 flex justify-end gap-2 items-center border-t">
+                    <button 
+                        className="w-1/4 h-16 text-m text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
+                        onClick={handleAddToCart}
+                    >
+                        <i className="bi bi-cart" />
+                    </button>
+                    <button className="w-3/5 h-16 text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+                        購入する
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

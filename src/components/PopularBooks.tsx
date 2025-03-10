@@ -42,7 +42,7 @@ const PopularBooks = () => {
                                     // <div key={id} className='grid grid-cols-3 grid-flow-col gap-4  '>
                                         <div key={id} className='flex gap-8'>
                                             <div onClick={()=>{router.push(`/itemdetail/${item.id}`)}} >
-                                                <img className='w-20 cursor-pointer border-[1px] rounded-md' src={`/uploads/${item.itemImgs?.[0].attachedFileName}`}/>
+                                                <img className='w-20 min-w-12 cursor-pointer border-[1px] rounded-md' src={`/uploads/${item.itemImgs?.[0].attachedFileName}`}/>
                                             </div>
                                             <div className='flex gap-8 items-center'>
                                                 <h4 className='font-bold'>{id+1}</h4>
