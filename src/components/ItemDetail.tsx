@@ -3,6 +3,7 @@
 import { useUserContext } from "@/context/UserContext";
 import useWindowWidth from "@/hooks/useWindowWidth";
 import { Item } from "@/types/item";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface ItemDetailProps {
@@ -17,13 +18,12 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isIntro,setIsIntro] = useState(true)
     const windowWidth = useWindowWidth();    
-
-    console.log("ItemDetail:", item);
-
+    const router = useRouter();
 
     useEffect(() => {
         const fetchItem = async () => {
             try {
+              
                 const response = await fetch(`/api/items/detail?id=${itemId}`,{
                     method:"GET",
                     headers:{
@@ -32,12 +32,11 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                         'Expires': '0',
                     }
                 });
-                console.log("Response status:", response.status);
-                console.log("Response headers:", response.headers);
                 
                 if (!response.ok) throw new Error('Failed to fetch item');
                 const data = await response.json();
                 setItem(data);
+            
             } catch (error) {
                 console.error('Error fetching item:', error);
             } finally {
@@ -53,6 +52,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
 
     const handleAddToCart = async () => {
         try {
+            if(window.confirm("カートに入れますか？")){
             const response = await fetch('/api/cart', {
                 method: 'POST',
                 headers: {
@@ -64,14 +64,18 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     userId : userId
                 })
             });
-
-            console.log(item)
+            if(response.ok){
+                const result = window.confirm("ショッピングを続けますか？")
+                if(!result){
+                    router.push("/mycart")
+                }
+            }
 
             if (!response.ok) throw new Error('Failed to add to cart');
             const data = await response.json();
             console.log('Cart updated:', data);
 
-
+        }
         } catch (error) {
             console.error('Error adding to cart:', error);
 

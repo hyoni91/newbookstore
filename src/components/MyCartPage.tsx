@@ -34,6 +34,7 @@ export default function MyCartPage(){
             return;
         }
         try {
+            if(window.confirm("本当に削除しますか？")){
             const response = await fetch('/api/cart/mycart/delete', {
                 method: 'DELETE',
                 headers: {
@@ -44,9 +45,14 @@ export default function MyCartPage(){
                     userId : userId
                 })
             });
+            if(response.ok){
+                alert("削除しました。")
+                setDeleteId([])
+            }
             if (!response.ok) throw new Error('Failed to delete cart');
             const data = await response.json();
             console.log('Cart deleted:', data);
+        }
         } catch (error) {
             console.error('Error deleting cart:', error);
         }
@@ -80,7 +86,7 @@ export default function MyCartPage(){
         }
     }
         fetchCart();
-    },[userId, cntChangeData])
+    },[userId, cntChangeData,deleteId])
 
     const onChangeCntData = (e: React.ChangeEvent<HTMLInputElement> , id : number) => {
         const {name,value} = e.target;
