@@ -1,7 +1,6 @@
 "use client"
 
 import useWindowWidth from "@/hooks/useWindowWidth"
-import React, { useEffect } from "react"
 
 export default function Banner(){
 

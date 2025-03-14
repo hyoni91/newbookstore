@@ -15,7 +15,6 @@ export default function MyCartPage(){
     const [chkId, setChkId] = useState<number[]>([]);
     const [cntChangeData, setCntChangeData] = useState<ChangeCartCntRequest|undefined>();
     const windowWidth = useWindowWidth();
-    const [price, setPrice] = useState(0)
 
     console.log("UserId:", userId);
 
