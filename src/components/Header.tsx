@@ -158,7 +158,7 @@ const handleLogout = () =>{
                         items.map((item,id)=>{
                             return(
                                 <div 
-                                    className="mt-2 flex justify-start items-center gap-2 cursor-pointer" 
+                                    className="mt-2 flex justify-start items-center gap-2 cursor-pointer " 
                                     key={id}
                                     onClick={()=>{router.push(`/itemdetail/${item.id}`); setIsSearch(false)}}
                                 >

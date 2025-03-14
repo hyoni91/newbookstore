@@ -178,7 +178,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                 </div>
                  {/* Buttons for Mobile */}
             {windowWidth < 768 && (
-                <div className="fixed bottom-0 left-0 right-0 bg-white py-2 flex justify-end gap-2 items-center border-t">
+                <div className="animate-fade_up fixed bottom-0 left-0 right-0 bg-white py-2 flex justify-end gap-2 items-center border-t">
                     <button 
                         className="w-1/4 h-16 text-m text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
                         onClick={handleAddToCart}

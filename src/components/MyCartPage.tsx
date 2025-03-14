@@ -242,7 +242,7 @@ export default function MyCartPage(){
 
                 windowWidth < 768 &&(
                 <>
-                    <div className="fixed bottom-0 left-0 right-0 bg-white py-2 flex justify-end gap-2 items-center border-t">
+                    <div className="animate-fade_up fixed bottom-0 left-0 right-0 bg-white py-2 flex justify-end gap-2 items-center border-t">
                         <button 
                             className="w-1/2 h-16 text-m text-gray-600 border-[1px] hover:text-gray-900 hover:border-gray-400 p-4 rounded-lg font-medium"
                             onClick={()=>{handleDelete()}}
