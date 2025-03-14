@@ -80,17 +80,28 @@ const handleLogout = () =>{
         <div>
         {
             windowWidth < 768 ?
-            <div className="relative">
-                <span className="relative " onClick={()=>setDropMenu(!dropMenu)}><i className="bi bi-list px-4 py-2 " /></span>
-                {
-                    dropMenu?
-                    <div className="flex flex-col absolute top-8 right-0 w-16 mr-auto py-2 px-2 gap-1 text-center bg-white border shadow-lg rounded-md z-10 bg-white">
-                        <Link href={"/login"} onClick={()=>setDropMenu(false)} className="hover:font-bold">Login</Link>
-                        <Link href={"/join"} onClick={()=>setDropMenu(false)} className="hover:font-bold">Join</Link>
-                    </div>
-                 :
-                 null
-                }
+                <div className="relative">
+                    {
+                isLoggedIn ?
+                <div className="flex items-center justify-end">
+                    <p className="px-2 py-2 text-sm">{userId}様</p>
+                    <Link href="/mycart" className="px-2 py-2 text-md"><i className="bi bi-cart4 " /></Link>
+                    <button className="px-2 text-md" onClick={handleLogout}>
+                    <i className="bi bi-box-arrow-right" />
+                    </button>
+                </div>
+                :
+                <span className="relative" onClick={() => setDropMenu(!dropMenu)}>
+                    <i className="bi bi-list px-4 py-2" />
+                </span>
+        }
+        {
+            dropMenu && !isLoggedIn &&
+            <div className="flex flex-col absolute top-8 right-0 w-16 py-2 px-2 gap-1 text-center bg-white border shadow-lg rounded-md z-10">
+                <Link href={"/login"} onClick={() => setDropMenu(false)} className="hover:font-bold">Login</Link>
+                <Link href={"/join"} onClick={() => setDropMenu(false)} className="hover:font-bold">Join</Link>
+            </div>
+        }
                 
             </div>
             :

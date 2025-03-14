@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { UserProvider } from "@/context/UserContext";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Footer from "@/components/Footer";
 
 
 
@@ -53,11 +54,7 @@ export default function RootLayout({
           {children}
         </main>
 
-        <footer className=" bg-gray-50 mt-auto px-6 py-8 w-full ">
-          <div className="max-w-7xl mx-auto px-6 text-center text-gray-600">
-            <p>© 2025 Book Shop. All rights reserved.</p>
-          </div>
-        </footer>
+      <Footer />
       </body>
     </html>
   </UserProvider>

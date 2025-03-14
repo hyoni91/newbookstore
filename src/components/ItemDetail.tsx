@@ -177,15 +177,15 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     
                 </div>
                  {/* Buttons for Mobile */}
-            {windowWidth < 640 && (
+            {windowWidth < 768 && (
                 <div className="fixed bottom-0 left-0 right-0 bg-white py-2 flex justify-end gap-2 items-center border-t">
                     <button 
-                        className="w-1/4 h-12 text-m text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
+                        className="w-1/4 h-16 text-m text-black border-stone-400 border-[1px] py-2 px-4 rounded-lg hover:border-stone-600 transition-colors"
                         onClick={handleAddToCart}
                     >
                         <i className="bi bi-cart" />
                     </button>
-                    <button className="w-3/5 h-12 text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+                    <button className="w-3/5 h-16 text-m bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
                         購入する
                     </button>
                 </div>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useUserContext } from "@/context/UserContext";
+import useWindowWidth from "@/hooks/useWindowWidth";
 import { MyCart } from "@/types/cart";
 import { ChangeCartCntRequest } from "@/types/item";
 import { useRouter } from 'next/navigation';
@@ -11,25 +12,37 @@ export default function MyCartPage(){
     const {userId} = useUserContext();
     const [cartData, setCartData] = useState<MyCart[]>();
     const router = useRouter();
-    const [deleteId, setDeleteId] = useState<number[]>([]);
+    const [chkId, setChkId] = useState<number[]>([]);
     const [cntChangeData, setCntChangeData] = useState<ChangeCartCntRequest|undefined>();
+    const windowWidth = useWindowWidth();
+    const [price, setPrice] = useState(0)
 
     console.log("UserId:", userId);
+
+    const getChkTotalPrice =()=>{
+        if(!cartData){
+            return 0;
+        }else{
+            return cartData.filter(item => chkId.includes(item.itemId)) //chk된 아이템 필터링
+           .reduce((acc,cur)=> acc + cur.cnt*cur.price,0)
+           .toLocaleString();
+        }
+    }
 
     const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {checked, value} = e.target;
         
         if(checked){
-            setDeleteId(prev => [...prev, Number(value)]);
+            setChkId(prev => [...prev, Number(value)]);
 
         }else{
-            setDeleteId(prev => prev.filter(id => id !== Number(value)));
+            setChkId(prev => prev.filter(id => id !== Number(value)));
         }
     
     }
 
     const handleDelete = async () => {
-        if (deleteId.length === 0) {
+        if (chkId.length === 0) {
             alert("削除するアイテムを選択してください。");
             return;
         }
@@ -41,13 +54,13 @@ export default function MyCartPage(){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id : deleteId,
+                    id : chkId,
                     userId : userId
                 })
             });
             if(response.ok){
                 alert("削除しました。")
-                setDeleteId([])
+                setChkId([])
             }
             if (!response.ok) throw new Error('Failed to delete cart');
             const data = await response.json();
@@ -86,7 +99,7 @@ export default function MyCartPage(){
         }
     }
         fetchCart();
-    },[userId, cntChangeData,deleteId])
+    },[userId, cntChangeData,chkId])
 
     const onChangeCntData = (e: React.ChangeEvent<HTMLInputElement> , id : number) => {
         const {name,value} = e.target;
@@ -100,8 +113,6 @@ export default function MyCartPage(){
             } as ChangeCartCntRequest;
         });
     }
-
-    console.log("cntChangeData:", cntChangeData);
 
 
     //changeCartCnt
@@ -134,8 +145,8 @@ export default function MyCartPage(){
 
 
     return(
-        <div className="w-full px-10 py-10 mx-auto">
-            <div className="text-sm text-left mb-10">カートに追加された商品の一覧です。</div>
+        <div className="max-w-6xl  px-5 py-5 mx-auto p-4">
+            <div className={`text-sm text-left mb-5`}>カートに追加された商品の一覧です。</div>
             <table className="w-full mr-auto  border-collapse border-t-[1px] border-b-[1px] text-center ">
             <colgroup>
             <col style={{width:"5%"}}/>
@@ -204,18 +215,48 @@ export default function MyCartPage(){
             </tbody>
 
              </table>
-             <div className="mt-10 text-right">
-                総額 : <span className="font-semibold">¥{cartData? cartData.reduce((acc,cur)=> acc + cur.cnt*cur.price,0).toLocaleString() : 0}</span>
-             </div>
-             <div className="mt-10 flex justify-end gap-4">
-                <button 
-                    className="w-2/12 text-gray-600 border-[1px] hover:text-gray-900 hover:border-gray-400 p-4 rounded-full font-medium"
-                    onClick={()=>{handleDelete()}}
-                >
-                        削除する
-                </button>
-                <button className="w-2/12 bg-blue-500 text-white p-4 rounded-full hover:bg-blue-600 transition-colors">購入する</button>
-             </div>
+             {
+                windowWidth <768 ?
+                <></>
+                :
+                <>
+                <div className="mt-10 text-right">
+                    総額 : <span className="font-semibold">¥{getChkTotalPrice()}</span>
+                </div>
+                <div className="mt-10 flex justify-end gap-4">
+                    <button 
+                        className="w-2/12 text-gray-600 border-[1px] hover:text-gray-900 hover:border-gray-400 p-4 rounded-full font-medium"
+                        onClick={()=>{handleDelete()}}
+                    >
+                            削除する
+                    </button>
+                    <button className="w-2/12 bg-blue-500 text-white p-4 rounded-full hover:bg-blue-600 transition-colors">購入する</button>
+                </div>
+                </>
+             }
+             
+
+             {/* Buttons for Mobile */}
+
+             {
+
+                windowWidth < 768 &&(
+                <>
+                    <div className="fixed bottom-0 left-0 right-0 bg-white py-2 flex justify-end gap-2 items-center border-t">
+                        <button 
+                            className="w-1/2 h-16 text-m text-gray-600 border-[1px] hover:text-gray-900 hover:border-gray-400 p-4 rounded-lg font-medium"
+                            onClick={()=>{handleDelete()}}
+                        >
+                                削除する
+                        </button>
+                        <button 
+                            className="w-1/2 h-16 bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-600 transition-colors"
+                        >購入する <p className="mb-2">¥{getChkTotalPrice()}</p>
+                        </button>
+                     </div>  
+                 </>
+                )
+             }
             
         </div>
         
