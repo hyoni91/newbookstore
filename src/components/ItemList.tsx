@@ -50,6 +50,8 @@ const ItemList = () => {
       
     }, [selectedCategory]);
 
+    console.log("items : " + items);
+
 
     if (!mounted) return null;
 

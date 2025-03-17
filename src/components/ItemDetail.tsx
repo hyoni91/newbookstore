@@ -5,6 +5,7 @@ import useWindowWidth from "@/hooks/useWindowWidth";
 import { Item } from "@/types/item";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import DetailBooks from "./DetailBooks";
 
 interface ItemDetailProps {
     itemId: string;
@@ -51,6 +52,10 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     if (!item) return <div>Item not found</div>;
 
     const handleAddToCart = async () => {
+        if(!userId){
+            alert("ログインが必要です。");
+            return;
+        }
         try {
             if(window.confirm("カートに入れますか？")){
             const response = await fetch('/api/cart', {
@@ -83,6 +88,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
     };
 
     return (
+        // メインコンテンツ
         <div className="px-5 py-5 max-w-6xl mx-auto p-4">
                 <div className={`${windowWidth < 640? "flex flex-col gap-4  items-center" : "flex gap-10"} `}>
                     <div>
@@ -106,7 +112,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                                 :
                                 <>
                                     <div className="h-20">
-                                        <p className="text-sm w-32">電子図書 : 本書は電子版のサービスはございません。</p>
+                                        <p className="text-sm ">電子図書 : 本書は電子版のサービスはございません。</p>
                                         <p className="text-sm">中古 : 多数あり</p>
                                     </div>
                                     <div className={` w-full flex gap-2 mt-12  justify-start"`}>
@@ -126,7 +132,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                     </div>
                 </div>
                   
-
+                {/* 作品詳細 */}
                 <div className="mt-16">
                     <div>
                         <h1 className="text-lg sm:text-xl md:text-1xl  lg:text-1xl"> {item.name} </h1>
@@ -166,7 +172,7 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                             <div className="mt-10 mr-auto">
                                 <p>出版社：ドリム</p>
                                 <p>作家：ホシノアイ</p>
-                                <p>発売日：2023/12/12</p>
+                                <p>発売日 : 2023/12/12</p>
                                 <p className="mt-10 font-bold">内容について</p>
                                 {item.intro}
                             </div>
@@ -174,7 +180,10 @@ export default function ItemDetail({ itemId }: ItemDetailProps) {
                         }
                         
                     </div>
-                    
+                    {/* 関連図書 */}
+                    <hr className="mt-10"/>
+                    <DetailBooks categoryId={item.categoryId} itemName={item.name}/>
+
                 </div>
                  {/* Buttons for Mobile */}
             {windowWidth < 768 && (
