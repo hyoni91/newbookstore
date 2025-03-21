@@ -11,13 +11,13 @@ export const useRecentItems = () => {
         setRecentItems(getRecentItems());
       }, []);
 
-    const saveRecentItems = (itemId: String) => {
+    const saveRecentItems = (itemId: number) => {
         const now = new Date().getTime();
         const recentItems = JSON.parse(localStorage.getItem("recentItems") || "[]");
 
         const updatedItems = [
             { id : itemId, timeStamp: now }, // add new item
-            ...recentItems.filter((item: { itemId: String; }) => item.itemId !== itemId) // remove duplicates
+            ...recentItems.filter((item: { itemId: number; }) => item.itemId !== itemId) // remove duplicates
         ].slice(0, 5); // keep only 5 items ,[] --> new array
 
         localStorage.setItem("recentItems", JSON.stringify(updatedItems));
@@ -35,7 +35,7 @@ export const useRecentItems = () => {
 
         localStorage.setItem("recentItems", JSON.stringify(recentItems));
 
-        return recentItems.map((item: { id: String; }) => item.id);
+        return recentItems.map((item: { id: number; }) => item.id);
     }
 
     return { recentItems, saveRecentItems, getRecentItems }; 

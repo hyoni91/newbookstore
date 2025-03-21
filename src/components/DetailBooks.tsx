@@ -11,16 +11,15 @@ import { Item } from "@/types/item";
 
 
 export default function DetailBooks({categoryId , itemName}: {categoryId: number, itemName: string}) {
-    console.log("categoryID : " + categoryId);
     const [items, setItems] = useState<Item[]>([]);
 
     useEffect(() => {
         const fetchItems = async () => {
-            const response = await fetch(`/api/items/?categoryId=${categoryId}`);
+            const response = await fetch(`/api/items/?categoryId=${categoryId}`); // get all items in the category
             const data: Item[] = await response.json();
             data.forEach((item) => {
-                if(item.name === itemName){
-                    data.splice(data.indexOf(item),1);
+                if(item.name === itemName){ // remove the item that is already displayed
+                    data.splice(data.indexOf(item),1); 
                 }
             });
             setItems(data || []);
@@ -29,7 +28,6 @@ export default function DetailBooks({categoryId , itemName}: {categoryId: number
       
     }, [categoryId]);
         
-    console.log(items);
 
     return (
         <div>
