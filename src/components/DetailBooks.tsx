@@ -9,7 +9,6 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Link from "next/link";
 import { Item } from "@/types/item";
 import { useRecentItems } from "@/hooks/useRecentItems";
-import { on } from "events";
 
 
 export default function DetailBooks({categoryId , itemName}: {categoryId: number, itemName: string}) {

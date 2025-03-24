@@ -133,7 +133,7 @@ const ItemList = () => {
                     <div className='flex gap-2'>
                         {items.filter((item) => recentItems.includes(item.id)).map((item) => (
                             <div key={item.id}>
-                                <Link href={`/itemdetail/${item.id}`} onClick = {() => handleRecent(item.id)}>
+                                <Link href={`/itemdetail/${item.id}`}>
                                     <img className='w-24  border-[1px] rounded-md' 
                                     src={`uploads/${item.itemImgs?.[0].attachedFileName}`}
                                     alt={item.name}
