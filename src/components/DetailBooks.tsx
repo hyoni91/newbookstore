@@ -8,10 +8,17 @@ import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Link from "next/link";
 import { Item } from "@/types/item";
+import { useRecentItems } from "@/hooks/useRecentItems";
+import { on } from "events";
 
 
 export default function DetailBooks({categoryId , itemName}: {categoryId: number, itemName: string}) {
     const [items, setItems] = useState<Item[]>([]);
+    const {saveRecentItems} = useRecentItems();
+
+    const handleRecent = (id : number) =>{
+        saveRecentItems(id);
+    }
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -47,7 +54,7 @@ export default function DetailBooks({categoryId , itemName}: {categoryId: number
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.id}>
-                        <Link href={`/itemdetail/${item.id}`}>
+                        <Link href={`/itemdetail/${item.id}` } onClick = {() => handleRecent(item.id)}>
                             <img className='w-40  border-[1px] rounded-md' 
                             src={`/uploads/${item.itemImgs?.[0].attachedFileName}`}
                             alt={item.name}

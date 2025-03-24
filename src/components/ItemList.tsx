@@ -10,6 +10,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Link from 'next/link';
 import PopularBooks from './PopularBooks';
 import useWindowWidth from '@/hooks/useWindowWidth';
+import { useRecentItems } from '@/hooks/useRecentItems';
 
 
 const ItemList = () => {
@@ -19,6 +20,11 @@ const ItemList = () => {
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
     const [activetab, setActivetab] = useState("All");
     const windowWidth = useWindowWidth();
+    const {recentItems, saveRecentItems} = useRecentItems();
+
+    const handleRecent = (id : number) =>{
+        saveRecentItems(id);
+    }
 
     const handleClick = (tab : string) =>{
         setActivetab(tab);
@@ -63,7 +69,6 @@ const ItemList = () => {
             case 3 : return(<>自分らしさを見つけ</>)
         
             default: return(<>今日のおすすめ</>)
-                break;
         }
     }
 
@@ -102,14 +107,13 @@ const ItemList = () => {
             >
                 {items.map((item) => (
                     <SwiperSlide key={item.id}>
-                        <Link href={`/itemdetail/${item.id}`}>
+                        <Link href={`/itemdetail/${item.id}`} onClick = {() => handleRecent(item.id)}>
                             <img className='w-44  border-[1px] rounded-md' 
                             src={`uploads/${item.itemImgs?.[0].attachedFileName}`}
                             alt={item.name}
                             />
                             <p className='text-xs'>{item.category.name}</p>
                             <p>{item.name}</p>
-                            {/* <p>¥{item.price.toLocaleString()}</p> */}
                         </Link>
                         
                     </SwiperSlide>
@@ -121,7 +125,28 @@ const ItemList = () => {
                 :
                 <></>
             }
-            
+
+            {
+                recentItems.length > 0 ?
+                <div className='mt-20 bg-gray-100 p-5'>
+                    <div className='font-bold text-lg mb-10'>最近見た商品</div>
+                    <div className='flex gap-2'>
+                        {items.filter((item) => recentItems.includes(item.id)).map((item) => (
+                            <div key={item.id}>
+                                <Link href={`/itemdetail/${item.id}`} onClick = {() => handleRecent(item.id)}>
+                                    <img className='w-24  border-[1px] rounded-md' 
+                                    src={`uploads/${item.itemImgs?.[0].attachedFileName}`}
+                                    alt={item.name}
+                                    />
+                                </Link>
+                            </div>
+                        ))} 
+                    </div>
+                </div>
+                :
+                <></>
+            }
+           
         </div>
     );
 };

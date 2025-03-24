@@ -1,5 +1,6 @@
 "use client"
 
+import { useRecentItems } from '@/hooks/useRecentItems';
 import { Item } from '@/types/item';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -9,6 +10,11 @@ const PopularBooks = () => {
     const [books, setBooks] = useState<Item[]>([])
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
+    const {saveRecentItems} = useRecentItems();
+
+    const handleRecent = (id : number) =>{
+        saveRecentItems(id);
+    }
 
     useEffect(()=>{
         const fetchBooks = async ()=> {
@@ -39,9 +45,8 @@ const PopularBooks = () => {
                         {
                             books.map((item,id)=>{
                                 return(
-                                    // <div key={id} className='grid grid-cols-3 grid-flow-col gap-4  '>
                                         <div key={id} className='flex gap-8'>
-                                            <div onClick={()=>{router.push(`/itemdetail/${item.id}`)}} >
+                                            <div onClick={()=>{router.push(`/itemdetail/${item.id}`); handleRecent(item.id)}} >
                                                 <img className='w-20 min-w-12 cursor-pointer border-[1px] rounded-md' src={`/uploads/${item.itemImgs?.[0].attachedFileName}`}/>
                                             </div>
                                             <div className='flex gap-8 items-center'>
@@ -52,7 +57,6 @@ const PopularBooks = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    // </div>
                                 )
                             })
                         }
