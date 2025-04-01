@@ -1,4 +1,5 @@
-現在、このプロジェクトは既存の[BookStore](https://github.com/hyoni91/bookstore)をNext.js、Prisma、TypeScriptを使用してリニューアル中です。
+# プロジェクト概要
+このプロジェクトは、既存の[BookStore](https://github.com/hyoni91/bookstore)をNext.js、Prisma、TypeScriptを使用してリニューアルしています。既存の機能を改善し、新しい機能を追加して、ユーザー体験の向上を目指しています。
 
 ## 更新内容
 
@@ -14,9 +15,12 @@
 
 - ユーザーがより簡単に欲しい本を探せるように、検索機能を追加しました。
 
+
 ### 閲覧リスト
 
-- ユーザーが最近閲覧したアイテムリストが表示されるようにしました。
+- ユーザーが最近閲覧したアイテムリストをLocalStorageに保存します。
+- 最近の５アイテムを表示します。
+- 10日が経つとリストから削除します。
 
 ### ウェブサイト
 [NewBookStore](https://newbookstore-omega.vercel.app/)
