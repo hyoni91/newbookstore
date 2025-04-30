@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function NotFound() {
@@ -8,7 +9,7 @@ export default function NotFound() {
             <p className="text-center mt-4">現在のページは存在しません。</p>
             <p className="text-center mt-2">URLを確認するか、ホームページに戻ってください。</p>
             <div className="flex justify-center mt-10">
-                <a href="/" className="bg-blue-500 text-white px-4 py-2 rounded-md">Go to Home</a>
+                <Link href="/" className="bg-blue-500 text-white px-4 py-2 rounded-md">Go to Home</Link>
             </div>
             <img className="w-1/2 mx-auto mt-10" src="/images/404.jpg" alt="Not Found" />
 
